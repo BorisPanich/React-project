@@ -5,7 +5,7 @@ import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import {BrowserRouter, Route} from 'react-router-dom';
-import {addPost, MessageType, PostType, ProfilePageType, RootStateType} from "./redux/state";
+import {MessageType, PostType, ProfilePageType, RootStateType} from "./redux/state";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from './components/Music/Music';
 import {News} from "./components/News/News";

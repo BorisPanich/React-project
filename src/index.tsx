@@ -1,7 +1,28 @@
 import React from 'react';
 import './index.css';
-import state from "./redux/state";
-import {renderTree} from "./render";
+import ReactDOM from 'react-dom';
+import App from './App';
+import store from "./redux/state";
 
-renderTree(state);
+
+export let renderEntereTree = () => {
+    ReactDOM.render(
+        <React.StrictMode>
+            <App state={store.getState()}
+                 addPostCallback={store.addPost.bind(store)}
+                 updateNewPostText={store.updateNewPostText.bind(store)}
+                 addMessageText={store.addMessageText.bind(store)}
+                 addMessageDlgText={store.addMessageDlgText.bind(store)}
+            />
+        </React.StrictMode>,
+        document.getElementById('root')
+    );
+}
+
+renderEntereTree();
+
+store.subscribe(renderEntereTree);
+
+
+// serviceWorker.unregister();
 
