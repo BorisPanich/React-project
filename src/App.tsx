@@ -5,7 +5,7 @@ import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import {BrowserRouter, Route} from 'react-router-dom';
-import {MessageType, PostType, ProfilePageType, RootStateType} from "./redux/state";
+import {ActionsTypes, MessageType, PostType, ProfilePageType, RootStateType} from "./redux/state";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from './components/Music/Music';
 import {News} from "./components/News/News";
@@ -13,10 +13,11 @@ import {Sidebar} from './components/Sidebar/Sidebar';
 
 export type AppType = {
     state: RootStateType
-    addPostCallback: (postText: string) => void
-    updateNewPostText: (newText: string) => void
-    addMessageDlgText: (newText: string) => void
-    addMessageText: (text: string) => void
+    // addPostCallback: (postText: string) => void
+    // updateNewPostText: (newText: string) => void
+    // addMessageDlgText: (newText: string) => void
+    // addMessageText: (text: string) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
 const App: React.FC<AppType> = (props) => {
@@ -29,13 +30,13 @@ const App: React.FC<AppType> = (props) => {
                 <div className='app-wrapper-content'>
                     <Route path='/profile' render={() => <Profile
                         profilePage={props.state.profilePage}
-                        addPostCallback={props.addPostCallback}
-                        updateNewPostText={props.updateNewPostText}
+                        dispatch={props.dispatch}
+                        // updateNewPostText={props.updateNewPostText}
                     />}/>
                     <Route path='/dialogs' render={() => <Dialogs
                         state={props.state}
-                        addMessageDlgText={props.addMessageDlgText}
-                        addMessageText={props.addMessageText}
+                        dispatch={props.dispatch}
+                        // addMessageText={props.addMessageText}
                     />}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/news' render={() => <News/>}/>

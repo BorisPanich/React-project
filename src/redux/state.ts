@@ -38,9 +38,29 @@ export type StoreType = {
     addMessageText: (newText: string) => void
     addMessageDlgText: (newText: string) => void
     subscribe: (observer: () => void) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
-let store = {
+type AddPostActionType = {
+    type: 'ADD-POST'
+}
+type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+type AddMessageTextActionType = {
+    type: 'ADD-MESSAGE-TEXT'
+    text: string
+}
+type AddMessageDLGTextActionType = {
+    type: 'ADD-MESSAGE-DLG-TEXT'
+    messageText: string
+}
+
+export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType | AddMessageTextActionType | AddMessageDLGTextActionType
+
+
+const store = {
     _state:  {
         profilePage: {
             posts: [
@@ -73,31 +93,31 @@ let store = {
     _callSubscriber()  {
         console.log("renderTree called")
     },
-    addPost() {
-        const newPost = {
-            id: new Date().getTime(),
-            message: this._state.profilePage.newPostText,
-            likes: 0,
-        }
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber();
-    },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber();
-    },
-    addMessageText(text: string) {
-        let newMassage = {id: 4, message: text}
-        this._state.dialogsPage.messages.push(newMassage);
-        this._callSubscriber();
-    },
-    addMessageDlgText(messageText: string) {
-        this._state.dialogsPage.newMessageText = messageText;
-        this._callSubscriber();
-    },
     subscribe (observer: () => void) {
         this._callSubscriber = observer
+    },
+    dispatch (action: ActionsTypes) {
+        if (action.type === 'ADD-POST') {
+            const newPost = {
+                id: new Date().getTime(),
+                message: this._state.profilePage.newPostText,
+                likes: 0,
+            }
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber();
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber();
+        } else if (action.type === 'ADD-MESSAGE-TEXT') {
+            let newMassage = {id: 4, message: action.text}
+            this._state.dialogsPage.messages.push(newMassage);
+            // this._state.dialogsPage.newMessageText = '';
+            this._callSubscriber();
+        // } else if (action.type === 'ADD-MESSAGE-DLG-TEXT') {
+        //     this._state.dialogsPage.newMessageText = action.messageText;
+        //     this._callSubscriber();
+        }
     }
 }
 

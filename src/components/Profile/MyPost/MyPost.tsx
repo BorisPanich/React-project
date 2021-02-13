@@ -1,13 +1,14 @@
 import React from 'react';
 import s from './MyPost.module.css';
 import Post from "./Post/Post";
-import {PostType} from "../../../redux/state";
+import {ActionsTypes, PostType} from "../../../redux/state";
 
 export type MyPostType = {
     posts: Array<PostType>
-    addPostCallback: (postText: string) => void
-    updateNewPostText: (newText: string) => void
+    // addPostCallback: (postText: string) => void
+    // updateNewPostText: (newText: string) => void
     newPostText: string
+    dispatch: (action: ActionsTypes) => void
 }
 
 const MyPost: React.FC<MyPostType> = (props) => {
@@ -18,13 +19,17 @@ const MyPost: React.FC<MyPostType> = (props) => {
 
     const addPostText = () => {
         if (newPostElement.current) {
-            props.addPostCallback(newPostElement.current.value)
+            // let newText = newPostElement.current.value
+            // let action = {type: 'ADD-POST'};
+            props.dispatch({type: "ADD-POST"})
         }
     }
 
     let onPostChange = () => {
         if (newPostElement.current) {
-            props.updateNewPostText(newPostElement.current.value)
+            let text = newPostElement.current.value;
+            // let action = {type: 'UPDATE-NEW-POST-TEXT', newText: text};
+            props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: text})
         }
     }
 

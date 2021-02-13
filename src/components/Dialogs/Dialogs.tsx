@@ -1,13 +1,14 @@
-import React, {ChangeEvent, useRef, useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import s from './Dialogs.module.css';
 import DialogsItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
-import {RootStateType} from "../../redux/state";
+import {ActionsTypes, RootStateType} from "../../redux/state";
 
 type PropsType = {
     state: RootStateType
-    addMessageDlgText: (newText: string) => void
-    addMessageText: (text: string) => void
+    // addMessageDlgText: (newText: string) => void
+    // addMessageText: (text: string) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
 const Dialogs: React.FC<PropsType> = (props) => {
@@ -17,7 +18,9 @@ const Dialogs: React.FC<PropsType> = (props) => {
 
     const [message, setMessage] = useState<string>('')
     const onClickAddMessage = () => {
-        props.addMessageText(message)
+        // props.addMessageText(message)
+        // let action = {type: 'ADD-MESSAGE-TEXT', newMessage: message};
+        props.dispatch({type: "ADD-MESSAGE-TEXT", text: message})
     }
     const onChangeAddMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setMessage(e.currentTarget.value)
