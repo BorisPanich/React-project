@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './MyPost.module.css';
 import Post from "./Post/Post";
-import {ActionsTypes, PostType} from "../../../redux/state";
+import {ActionsTypes, addPostAC, PostType, updateNewPostTextAC} from "../../../redux/state";
 
 export type MyPostType = {
     posts: Array<PostType>
@@ -21,7 +21,8 @@ const MyPost: React.FC<MyPostType> = (props) => {
         if (newPostElement.current) {
             // let newText = newPostElement.current.value
             // let action = {type: 'ADD-POST'};
-            props.dispatch({type: "ADD-POST"})
+            props.dispatch(addPostAC())
+            // props.dispatch({type: "ADD-POST"})
         }
     }
 
@@ -29,7 +30,8 @@ const MyPost: React.FC<MyPostType> = (props) => {
         if (newPostElement.current) {
             let text = newPostElement.current.value;
             // let action = {type: 'UPDATE-NEW-POST-TEXT', newText: text};
-            props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: text})
+            props.dispatch(updateNewPostTextAC(text))
+            // props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: text})
         }
     }
 

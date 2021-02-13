@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from "react";
 import s from './Dialogs.module.css';
 import DialogsItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
-import {ActionsTypes, RootStateType} from "../../redux/state";
+import {ActionsTypes, addMessageTextAC, RootStateType} from "../../redux/state";
 
 type PropsType = {
     state: RootStateType
@@ -20,7 +20,8 @@ const Dialogs: React.FC<PropsType> = (props) => {
     const onClickAddMessage = () => {
         // props.addMessageText(message)
         // let action = {type: 'ADD-MESSAGE-TEXT', newMessage: message};
-        props.dispatch({type: "ADD-MESSAGE-TEXT", text: message})
+        props.dispatch(addMessageTextAC(message))
+        // props.dispatch({type: "ADD-MESSAGE-TEXT", text: message})
     }
     const onChangeAddMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setMessage(e.currentTarget.value)

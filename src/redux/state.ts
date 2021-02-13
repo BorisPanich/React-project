@@ -33,35 +33,43 @@ export type StoreType = {
     _state: RootStateType
     getState: () => RootStateType
     _callSubscriber: () => void
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
-    addMessageText: (newText: string) => void
-    addMessageDlgText: (newText: string) => void
+    // addPost: () => void
+    // updateNewPostText: (newText: string) => void
+    // addMessageText: (newText: string) => void
+    // addMessageDlgText: (newText: string) => void
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionsTypes) => void
 }
 
-type AddPostActionType = {
-    type: 'ADD-POST'
-}
-type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-type AddMessageTextActionType = {
-    type: 'ADD-MESSAGE-TEXT'
-    text: string
-}
-type AddMessageDLGTextActionType = {
-    type: 'ADD-MESSAGE-DLG-TEXT'
-    messageText: string
-}
+type AddPostActionType = ReturnType<typeof addPostAC>
+// type AddPostActionType = {
+//     type: 'ADD-POST'
+// }
+type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
+// type UpdateNewPostTextActionType = {
+//     type: 'UPDATE-NEW-POST-TEXT'
+//     newText: string
+// }
+type AddMessageTextActionType = ReturnType<typeof addMessageTextAC>
+// type AddMessageTextActionType = {
+//     type: 'ADD-MESSAGE-TEXT'
+//     text: string
+// }
+// type AddMessageDLGTextActionType = {
+//     type: 'ADD-MESSAGE-DLG-TEXT'
+//     messageText: string
+// }
 
-export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType | AddMessageTextActionType | AddMessageDLGTextActionType
+export type ActionsTypes = ReturnType<typeof addPostAC> |
+    ReturnType<typeof updateNewPostTextAC> |
+    ReturnType<typeof addMessageTextAC>
 
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const ADD_MESSAGE_TEXT = 'ADD-MESSAGE-TEXT';
 
-const store = {
-    _state:  {
+const store: StoreType = {
+    _state: {
         profilePage: {
             posts: [
                 {id: 1, message: 'Hallo, haw are you?', likes: 43},
@@ -90,14 +98,14 @@ const store = {
     getState() {
         return this._state
     },
-    _callSubscriber()  {
+    _callSubscriber() {
         console.log("renderTree called")
     },
-    subscribe (observer: () => void) {
+    subscribe(observer: () => void) {
         this._callSubscriber = observer
     },
-    dispatch (action: ActionsTypes) {
-        if (action.type === 'ADD-POST') {
+    dispatch(action: ActionsTypes) {
+        if (action.type === ADD_POST) {
             const newPost = {
                 id: new Date().getTime(),
                 message: this._state.profilePage.newPostText,
@@ -106,19 +114,25 @@ const store = {
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.newPostText = '';
             this._callSubscriber();
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber();
-        } else if (action.type === 'ADD-MESSAGE-TEXT') {
+        } else if (action.type === ADD_MESSAGE_TEXT) {
             let newMassage = {id: 4, message: action.text}
             this._state.dialogsPage.messages.push(newMassage);
-            // this._state.dialogsPage.newMessageText = '';
+            this._state.dialogsPage.newMessageText = '';
             this._callSubscriber();
-        // } else if (action.type === 'ADD-MESSAGE-DLG-TEXT') {
-        //     this._state.dialogsPage.newMessageText = action.messageText;
-        //     this._callSubscriber();
+            // } else if (action.type === 'ADD-MESSAGE-DLG-TEXT') {
+            //     this._state.dialogsPage.newMessageText = action.messageText;
+            //     this._callSubscriber();
         }
     }
 }
+
+export const addPostAC = () => ({type: "ADD-POST"} as const)
+export const updateNewPostTextAC = (newText: string) =>
+    ({type: "UPDATE-NEW-POST-TEXT", newText: newText} as const)
+export const addMessageTextAC = (text: string) =>
+    ({type: "ADD-MESSAGE-TEXT", text: text} as const)
 
 export default store;

@@ -19,7 +19,7 @@ const Profile: React.FC<ProfileType> = (props) => {
             <MyPost posts={props.profilePage.posts}
                     newPostText={props.profilePage.newPostText}
                     dispatch={props.dispatch}
-                    // updateNewPostText={props.updateNewPostText}
+                // updateNewPostText={props.updateNewPostText}
             />
         </div>
     )
