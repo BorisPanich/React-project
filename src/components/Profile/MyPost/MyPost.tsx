@@ -25,8 +25,7 @@ const MyPost: React.FC<MyPostType> = (props) => {
             // props.dispatch({type: "ADD-POST"})
         }
     }
-
-    let onPostChange = () => {
+    const onPostChange = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value;
             // let action = {type: 'UPDATE-NEW-POST-TEXT', newText: text};

@@ -13,10 +13,6 @@ import {Sidebar} from './components/Sidebar/Sidebar';
 
 export type AppType = {
     state: RootStateType
-    // addPostCallback: (postText: string) => void
-    // updateNewPostText: (newText: string) => void
-    // addMessageDlgText: (newText: string) => void
-    // addMessageText: (text: string) => void
     dispatch: (action: ActionsTypes) => void
 }
 
@@ -31,12 +27,10 @@ const App: React.FC<AppType> = (props) => {
                     <Route path='/profile' render={() => <Profile
                         profilePage={props.state.profilePage}
                         dispatch={props.dispatch}
-                        // updateNewPostText={props.updateNewPostText}
                     />}/>
                     <Route path='/dialogs' render={() => <Dialogs
                         state={props.state}
                         dispatch={props.dispatch}
-                        // addMessageText={props.addMessageText}
                     />}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/news' render={() => <News/>}/>
