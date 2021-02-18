@@ -1,10 +1,10 @@
-import {ActionsTypes, RootStateType, StoreType} from "./state";
+import {ActionsTypes, ProfilePageType, RootStateType, StoreType} from "./state";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
 
-const profileReducer = (state: any, action: ActionsTypes) => {
+const profileReducer = (state: ProfilePageType, action: ActionsTypes) => {
     switch (action.type) {
         case ADD_POST:
             const newPost = {

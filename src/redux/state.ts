@@ -20,7 +20,6 @@ export type DialogType = {
 export type MessageType = {
     id?: number
     message: string
-    outmessage?: string
 }
 export type DialogsPageType = {
     dialogs: Array<DialogType>
@@ -28,6 +27,7 @@ export type DialogsPageType = {
     newMessageText: string
 }
 export type SidebarType = {}
+
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
@@ -64,7 +64,8 @@ export type StoreType = {
 //     messageText: string
 // }
 
-export type ActionsTypes = ReturnType<typeof addPostAC> |
+export type ActionsTypes =
+    ReturnType<typeof addPostAC> |
     ReturnType<typeof updateNewPostTextAC> |
     ReturnType<typeof addMessageTextAC> |
     ReturnType<typeof updateNewMessageTextAC>;

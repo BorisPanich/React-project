@@ -1,10 +1,10 @@
-import {ActionsTypes} from "./state";
+import {ActionsTypes, DialogsPageType} from "./state";
 
 const ADD_MESSAGE_TEXT = 'ADD-MESSAGE-TEXT';
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
-const dialogsReducer = (state: any, action: any) => {
-    switch (action.type, action) {
+const dialogsReducer = (state: DialogsPageType, action: ActionsTypes) => {
+    switch (action.type) {
         case ADD_MESSAGE_TEXT:
             let newMassage = {
                 id: 4,
