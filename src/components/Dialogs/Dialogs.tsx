@@ -2,30 +2,30 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css';
 import DialogsItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
-import {ActionsTypes, RootStateType} from "../../redux/state";
-import {addMessageTextAC, updateNewMessageTextAC} from "../../redux/dialogsReducer";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type PropsType = {
-    state: RootStateType
-    dispatch: (action: ActionsTypes) => void
-}
+// type PropsType = {
+//     // state: RootStateType
+//     // dispatch: (action: ActionsTypes) => void
+//     updateNewMessageText: (newMText: string) => void
+//     addMessageText: (newMessageText: string) => void
+//     dialogsPage: DialogsPageType
+// }
 
-const Dialogs: React.FC<PropsType> = (props) => {
-    let lockalState = props.state.dialogsPage
+const Dialogs = (props: DialogsPropsType) => {
+    let lockalState = props.dialogsPage
 
     let dialogsElement = lockalState.dialogs.map((d) => <DialogsItem id={d.id} name={d.name}/>)
     let messagesElement = lockalState.messages.map((m) => <Message message={m.message}/>)
     let newMessageText = lockalState.newMessageText
 
     const onClickAddMessage = () => {
-        props.dispatch(addMessageTextAC(newMessageText))
+        props.addMessageText(newMessageText)
     }
-    // const keyPressAddMessage = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    //     if (e.charCode === 102) {onClickAddMessage()}
-    // }
+
     const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newMText = e.currentTarget.value
-        props.dispatch(updateNewMessageTextAC(newMText))
+        props.updateNewMessageText(newMText)
     }
 
     return (
@@ -40,7 +40,7 @@ const Dialogs: React.FC<PropsType> = (props) => {
                 <div className={s.messageInput}>
                     <textarea onChange={onChangeMessage}
                               value={newMessageText}
-                              // onKeyPress={keyPressAddMessage}
+                        // onKeyPress={keyPressAddMessage}
                               placeholder='send Message here'
                     />
                 </div>

@@ -1,38 +1,31 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './MyPost.module.css';
 import Post from "./Post/Post";
-import {ActionsTypes, PostType} from "../../../redux/state";
-import {addPostAC, updateNewPostTextAC} from "../../../redux/profileReducer";
+import {MyPostPropsType} from "./MyPostContainer";
 
-export type MyPostType = {
-    posts: Array<PostType>
-    // addPostCallback: (postText: string) => void
-    // updateNewPostText: (newText: string) => void
-    newPostText: string
-    dispatch: (action: ActionsTypes) => void
-}
+// export type MyPostType = {
+//     // posts: Array<PostType>
+//     addPost: () => void
+//     updateNewPostText: (newText: string) => void
+//     profilePage: ProfilePageType
+//     // newPostText: string
+//     // dispatch: (action: ActionsTypes) => void
+//
+// }
 
-const MyPost: React.FC<MyPostType> = (props) => {
+const MyPost = (props: MyPostPropsType) => {
+    let lockalState = props.profilePage
+    let postsElement = lockalState.posts.map(p => <Post message={p.message} likes={p.likes}/>)
 
-    let postsElement = props.posts.map(p => <Post message={p.message} likes={p.likes}/>)
-
-    let newPostElement = React.createRef<HTMLTextAreaElement>();
+    // let newPostElement = React.createRef<HTMLTextAreaElement>();
+    let newPostText = lockalState.newPostText
 
     const addPostText = () => {
-        if (newPostElement.current) {
-            // let newText = newPostElement.current.value
-            // let action = {type: 'ADD-POST'};
-            props.dispatch(addPostAC())
-            // props.dispatch({type: "ADD-POST"})
-        }
+        props.addPost()
     }
-    const onPostChange = () => {
-        if (newPostElement.current) {
-            let text = newPostElement.current.value;
-            // let action = {type: 'UPDATE-NEW-POST-TEXT', newText: text};
-            props.dispatch(updateNewPostTextAC(text))
-            // props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: text})
-        }
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let newText = e.currentTarget.value;
+        props.updateNewPostText(newText)
     }
 
     return (
@@ -40,9 +33,9 @@ const MyPost: React.FC<MyPostType> = (props) => {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement}
+                    <textarea
                               onChange={onPostChange}
-                              value={props.newPostText}/>
+                              value={newPostText}/>
                 </div>
                 <div>
                     <button onClick={addPostText}>Add post</button>

@@ -1,9 +1,7 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
 
-type ProfileInfoType = {
-
-}
+type ProfileInfoType = {}
 
 const ProfileInfo = () => {
     return (
