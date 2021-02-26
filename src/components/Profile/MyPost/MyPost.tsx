@@ -3,21 +3,10 @@ import s from './MyPost.module.css';
 import Post from "./Post/Post";
 import {MyPostPropsType} from "./MyPostContainer";
 
-// export type MyPostType = {
-//     // posts: Array<PostType>
-//     addPost: () => void
-//     updateNewPostText: (newText: string) => void
-//     profilePage: ProfilePageType
-//     // newPostText: string
-//     // dispatch: (action: ActionsTypes) => void
-//
-// }
-
 const MyPost = (props: MyPostPropsType) => {
     let lockalState = props.profilePage
     let postsElement = lockalState.posts.map(p => <Post message={p.message} likes={p.likes}/>)
 
-    // let newPostElement = React.createRef<HTMLTextAreaElement>();
     let newPostText = lockalState.newPostText
 
     const addPostText = () => {
@@ -34,8 +23,8 @@ const MyPost = (props: MyPostPropsType) => {
             <div>
                 <div>
                     <textarea
-                              onChange={onPostChange}
-                              value={newPostText}/>
+                        onChange={onPostChange}
+                        value={newPostText}/>
                 </div>
                 <div>
                     <button onClick={addPostText}>Add post</button>

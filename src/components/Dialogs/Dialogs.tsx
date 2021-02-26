@@ -4,13 +4,6 @@ import DialogsItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
 
-// type PropsType = {
-//     // state: RootStateType
-//     // dispatch: (action: ActionsTypes) => void
-//     updateNewMessageText: (newMText: string) => void
-//     addMessageText: (newMessageText: string) => void
-//     dialogsPage: DialogsPageType
-// }
 
 const Dialogs = (props: DialogsPropsType) => {
     let lockalState = props.dialogsPage
