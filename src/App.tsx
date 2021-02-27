@@ -11,6 +11,7 @@ import {Music} from './components/Music/Music';
 import {News} from "./components/News/News";
 import {Sidebar} from './components/Sidebar/Sidebar';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from './components/Users/UsersContainer';
 
 export type AppType = {
     // state: RootStateType
@@ -28,6 +29,7 @@ const App: React.FC<AppType> = (props) => {
                 <div className='app-wrapper-content'>
                     <Route path='/profile' render={() => <Profile/>}/>
                     <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+                    <Route path='/users' render={() => <UsersContainer />}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/settings' render={() => <Settings/>}/>

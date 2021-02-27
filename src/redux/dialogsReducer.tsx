@@ -23,10 +23,6 @@ let initialState = {
 export type DlgReducerInitialStateType = typeof initialState;
 
 const dialogsReducer = (state: DlgReducerInitialStateType = initialState, action: ActionsTypes): DlgReducerInitialStateType => {
-    // let stateCopy = {
-    //     ...state,
-    //     messages: [...state.messages]
-    // }
 
     switch (action.type) {
         case ADD_MESSAGE_TEXT:
