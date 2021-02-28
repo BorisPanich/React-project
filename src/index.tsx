@@ -7,11 +7,9 @@ import {Provider} from "react-redux";
 
 // export let renderEntereTree = () => {
 ReactDOM.render(
-    <React.StrictMode>
         <Provider store={store}>
             <App/>
-        </Provider>
-    </React.StrictMode>,
+        </Provider>,
     document.getElementById('root'));
 // }
 // renderEntereTree();

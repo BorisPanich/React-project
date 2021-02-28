@@ -1,16 +1,32 @@
-import {ActionsTypes, PostType} from "./redux-store";
+import {ActionsTypes} from "./redux-store";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 
-let initialState = {
-    users: [] //as Array<PostType>
+export type UsersLocationType = {
+    city: string
+    country: string
+}
+export type UserType = {
+    id: number
+    photoUrl: string
+    followed: boolean
+    fullName: string
+    status: string
+    location: UsersLocationType
+}
+export type InitialStateType = {
+    users: Array<UserType>
+}
+
+let initialState: InitialStateType = {
+    users: []
 }
 
 export type UsersReducerInitialStateType = typeof initialState;
 
-const usersReducer = (state: UsersReducerInitialStateType = initialState, action: ActionsTypes): UsersReducerInitialStateType => {
+const usersReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -42,7 +58,7 @@ const usersReducer = (state: UsersReducerInitialStateType = initialState, action
 
 export const followAC = (userId: number) => ({type: "FOLLOW", userId} as const);
 export const unfollowAC = (userId: number) => ({type: "UNFOLLOW", userId} as const);
-export const setUsersAC = (users) => ({type: "SET_USERS", users} as const);
+export const setUsersAC = (users: Array<UserType>) => ({type: "SET_USERS", users} as const);
 
 export default usersReducer;
 

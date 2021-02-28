@@ -1,8 +1,11 @@
 import React from 'react';
 import styles from './users.module.css';
+import {UserPropsType} from "./UsersContainer";
 
-const Users = (props) => {
-    if (props.users.length === 0) {
+
+
+const Users = (props: UserPropsType) => {
+    if (props.usersPage.users.length === 0) {
         props.setUsers([
             {
                 id: 1,
@@ -33,13 +36,13 @@ const Users = (props) => {
 
     return (
         <div>
-            {props.users.map(u => <div key={u.id}>
+            {props.usersPage.users.map(u => <div key={u.id}>
                 <span>
                     <div>
                         <img src={u.photoUrl} className={styles.usersPhoto}/>
                     </div>
                     <div>
-                        {u.follow
+                        {u.followed
                             ? <button onClick={() => {
                                 props.unfollow(u.id)
                             }}>Unfollow</button>
