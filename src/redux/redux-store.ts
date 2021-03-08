@@ -2,7 +2,7 @@ import {combineReducers, createStore} from "redux";
 import profileReducer, {addPostAC, updateNewPostTextAC} from "./profileReducer";
 import dialogsReducer, {addMessageTextAC, updateNewMessageTextAC} from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
-import usersReducer, {followAC, setUsersAC, unfollowAC, UserType} from "./usersReducer";
+import usersReducer, {followAC, setUsersAC, unfollowAC} from "./usersReducer";
 
 
 export type PostType = {
