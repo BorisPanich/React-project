@@ -6,53 +6,39 @@ import userPhoto from '../../assets/images/photo.png'
 
 
 class Users extends React.Component<UserPropsType> {
-    constructor(props: UserPropsType) {
-        super(props);
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.currentPage}`).then(response => {
             this.props.setUsers(response.data.items)
         })
     }
 
-    // getUsers = () => {
-    //     if (this.props.usersPage.users.length === 0) {
-    //
-    //
-    //         // props.setUsers([
-    //         //     {
-    //         //         id: 1,
-    //         //         photoUrl: 'https://previews.123rf.com/images/snake3d/snake3d1603/snake3d160300081/53550216-smiley-alien-face-cartoon-cute-head-emoticon-monster-ball-golden-green-avatar-cheerful-funny-smile-i.jpg',
-    //         //         followed: true,
-    //         //         fullName: 'Boris',
-    //         //         status: 'It\'s me',
-    //         //         location: {city: 'Lida', country: 'Belarus'}
-    //         //     },
-    //         //     {
-    //         //         id: 2,
-    //         //         photoUrl: 'https://previews.123rf.com/images/snake3d/snake3d1603/snake3d160300081/53550216-smiley-alien-face-cartoon-cute-head-emoticon-monster-ball-golden-green-avatar-cheerful-funny-smile-i.jpg',
-    //         //         followed: true,
-    //         //         fullName: 'Olga',
-    //         //         status: 'She my wife',
-    //         //         location: {city: 'Lida', country: 'Belarus'}
-    //         //     },
-    //         //     {
-    //         //         id: 3,
-    //         //         photoUrl: 'https://previews.123rf.com/images/snake3d/snake3d1603/snake3d160300081/53550216-smiley-alien-face-cartoon-cute-head-emoticon-monster-ball-golden-green-avatar-cheerful-funny-smile-i.jpg',
-    //         //         followed: false,
-    //         //         fullName: 'Dymok',
-    //         //         status: 'He my friend',
-    //         //         location: {city: 'Kobrin', country: 'Belarus'}
-    //         //     },
-    //         // ])
-    //     }
-    // }
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.currentPage}`).then(response => {
+            this.props.setUsers(response.data.items);
+            this.props.setTotalUsersCount(response.data.totalCount);
+        })
+    }
 
     render() {
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+
+        let pages = [];
+        for (let i = 1; i <= pagesCount; i++)
+            pages.push(i);
+
         return <div>
-            {/*<button onClick={this.getUsers}>Get Users</button>*/}
-            {this.props.usersPage.users.map(u => <div key={u.id}>
+            <div>
+                {pages.map(p => {
+                    return <span className={p === this.props.currentPage ? styles.selectedPage : ''}
+                    onClick={() => {this.onPageChanged(p);}} >{p}</span>
+                })}
+            </div>
+            {this.props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photos != null ? u.photos : userPhoto} className={styles.usersPhoto}/>
+                        <img src={u.photos?.small ? u.photos?.small : userPhoto} className={styles.usersPhoto}/>
                     </div>
                     <div>
                         {u.followed
@@ -79,6 +65,6 @@ class Users extends React.Component<UserPropsType> {
             </div>)}
         </div>
     }
-}
+};
 
 export default Users;
