@@ -42,9 +42,9 @@ const dialogsReducer = (state: DlgReducerInitialStateType = initialState, action
     }
 }
 
-export const addMessageTextAC = (text: string) =>
+export const addMessageText = (text: string) =>
     ({type: "ADD-MESSAGE-TEXT", text: text} as const);
-export const updateNewMessageTextAC = (newMText: string) =>
+export const updateNewMessageText = (newMText: string) =>
     ({type: "UPDATE-NEW-MESSAGE-TEXT", newMText: newMText} as const)
 
 export default dialogsReducer;

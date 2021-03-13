@@ -37,8 +37,8 @@ const profileReducer = (state: PrfReducerInitialStateType = initialState, action
     }
 }
 
-export const addPostAC = () => ({type: "ADD-POST"} as const);
-export const updateNewPostTextAC = (newText: string) =>
+export const addPost = () => ({type: "ADD-POST"} as const);
+export const updateNewPostText = (newText: string) =>
     ({type: "UPDATE-NEW-POST-TEXT", newText: newText} as const);
 
 export default profileReducer;

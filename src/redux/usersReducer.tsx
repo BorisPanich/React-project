@@ -5,6 +5,7 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+const TOGGLE_ISFETCHING = 'TOGGLE_ISFETCHING';
 
 export type UsersLocationType = {
     city: string
@@ -23,13 +24,15 @@ export type InitialStateType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 let initialState: InitialStateType = {
     users: [],
     pageSize: 5,
     totalUsersCount: 20,
-    currentPage: 4
+    currentPage: 4,
+    isFetching: true
 }
 
 export type UsersReducerInitialStateType = typeof initialState;
@@ -65,16 +68,20 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionsTyp
         case SET_TOTAL_USERS_COUNT: {
             return {...state, totalUsersCount: action.totalUsersCount}
         }
+        case TOGGLE_ISFETCHING: {
+            return {...state, isFetching: action.isFetching}
+        }
         default:
             return state;
     }
 }
 
-export const followAC = (userId: number) => ({type: "FOLLOW", userId} as const);
-export const unfollowAC = (userId: number) => ({type: "UNFOLLOW", userId} as const);
-export const setUsersAC = (users: Array<UserType>) => ({type: "SET_USERS", users} as const);
-export const setCurrentPageAC = (currentPage: number) => ({type: "SET_CURRENT_PAGE", currentPage} as const);
-export const setUsersTotalCountAC = (totalUsersCount: number) => ({type: "SET_TOTAL_USERS_COUNT", totalUsersCount} as const);
+export const follow = (userId: number) => ({type: "FOLLOW", userId} as const);
+export const unfollow = (userId: number) => ({type: "UNFOLLOW", userId} as const);
+export const setUsers = (users: Array<UserType>) => ({type: "SET_USERS", users} as const);
+export const setCurrentPage = (currentPage: number) => ({type: "SET_CURRENT_PAGE", currentPage} as const);
+export const setTotalUsersCount = (totalUsersCount: number) => ({type: "SET_TOTAL_USERS_COUNT", totalUsersCount} as const);
+export const toggleIsFetching = (isFetching: boolean) => ({type: "TOGGLE_ISFETCHING", isFetching} as const);
 
 export default usersReducer;
 
