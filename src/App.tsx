@@ -12,6 +12,8 @@ import {News} from "./components/News/News";
 import {Sidebar} from './components/Sidebar/Sidebar';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/Users/UsersContainer';
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 export type AppType = {
     // state: RootStateType
@@ -24,10 +26,10 @@ const App: React.FC<AppType> = (props) => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
-                <Header/>
+                <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/profile' render={() => <Profile/>}/>
+                    <Route path='/profile/:userId?' render={() => <ProfileContainer />}/>
                     <Route path='/dialogs' render={() => <DialogsContainer/>}/>
                     <Route path='/users' render={() => <UsersContainer />}/>
                     <Route path='/music' render={() => <Music/>}/>

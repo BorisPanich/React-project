@@ -1,9 +1,8 @@
 import React from "react";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {ActionsTypes, RootReduxState} from "../../redux/redux-store";
+import {RootReduxState} from "../../redux/redux-store";
 import {addMessageText, DlgReducerInitialStateType, updateNewMessageText} from "../../redux/dialogsReducer";
-import {Dispatch} from "redux";
 
 type MapStateToPropsType = {
     dialogsPage: DlgReducerInitialStateType

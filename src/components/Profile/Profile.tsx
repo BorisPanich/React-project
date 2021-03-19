@@ -3,7 +3,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostContainer from "./MyPost/MyPostContainer";
 
 type ProfileType = {
-    // store: StoreType
+    profile: any
     // profilePage: ProfilePageType
     // dispatch: (action: ActionsTypes) => void
 }
@@ -12,7 +12,7 @@ const Profile: React.FC<ProfileType> = (props) => {
 
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile}/>
             <MyPostContainer />
         </div>
     )
