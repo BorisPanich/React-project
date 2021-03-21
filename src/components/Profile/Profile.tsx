@@ -4,8 +4,6 @@ import MyPostContainer from "./MyPost/MyPostContainer";
 
 type ProfileType = {
     profile: any
-    // profilePage: ProfilePageType
-    // dispatch: (action: ActionsTypes) => void
 }
 
 const Profile: React.FC<ProfileType> = (props) => {

@@ -2,46 +2,45 @@ import {ActionsTypes} from "./redux-store";
 
 const SET_DATA_AUTH_STATE = 'SET_DATA_AUTH_STATE';
 
-export type AuthStateType = {
+export type DataUserType = {
     id: number | null
     login: string | null
     email: string | null
-    isAuth: boolean | null
     // isFetching: boolean
 }
-
-let initialState: AuthStateType = {
-    id: null,
-    login: null,
-    email: null,
-    isAuth: false,
-    // isFetching: false
+type InitialStateType = {
+    dataUser: DataUserType
+    isAuth: boolean
 }
 
-export type AuthReducerInitialStateType = typeof initialState;
-// export type ActionsTypes = ReturnType<typeof setAuthUserData>
+let initialState: InitialStateType  = {
+    dataUser: {} as DataUserType,
+    isAuth: false,
+}
 
-const authReducer = (state: AuthStateType = initialState, action: ActionsTypes): AuthStateType => {
+// export type InitialStateType = typeof initialState;
+type ActionsType = SetAuthUserDataActionType
+type SetAuthUserDataActionType = ReturnType<typeof setAuthUserData>
+
+const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case SET_DATA_AUTH_STATE:
-            debugger;
             return {
                 ...state,
-                ...action.data,
+                dataUser: {...state.dataUser, ...action.data},
                 isAuth: true
             }
         default:
             return state;
-    }
-}
+    }}
 
-export type setAuthUserDataActionType = {
-    id: number
-    email: string
-    login: string
-}
+// export type setAuthUserDataActionType = {
+//     id: number
+//     email: string
+//     login: string
+// }
 
-export const setAuthUserData = (data: setAuthUserDataActionType) => ({type: "SET_DATA_AUTH_STATE", data} as const);
+export const setAuthUserData = (data: DataUserType) => ({type: "SET_DATA_AUTH_STATE", data} as const);
 
 export default authReducer;
 

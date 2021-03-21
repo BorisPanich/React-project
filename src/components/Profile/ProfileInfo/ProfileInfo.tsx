@@ -16,6 +16,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
             <div className={s.profileImg}>
                 <img src='https://www.visit-belarus.com/wp-content/uploads/2016/07/nature_avdevich4_compressed.jpg'/>
             </div>
+            <div className={s.photoFullName}>{props.profile.fullName}</div>
             <div className={s.avaDiscr}>
                 <img src={props.profile.photos.small}/>
                 ava + discription

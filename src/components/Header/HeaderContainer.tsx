@@ -3,15 +3,16 @@ import Header from "./Header";
 import axios from "axios";
 import {connect} from "react-redux";
 import {RootReduxState} from "../../redux/redux-store";
-import {AuthStateType, setAuthUserData} from "../../redux/authReducer";
+import {DataUserType, setAuthUserData} from "../../redux/authReducer";
 import {Preloader} from "../common/Preloader/Preloader";
 
 type MSTPType = {
-    state: AuthStateType
+    state: DataUserType
+    isAuth: boolean
     // isFetching: boolean
 }
 type MDTPType = {
-    setAuthUserData: (id: number, login: string, email: string) => void
+    setAuthUserData: (data: DataUserType) => void
     // toggleIsFetching: (isFetching: boolean) => void
 }
 
@@ -24,29 +25,22 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
             // this.props.toggleIsFetching(false);
             if(response.data.resultCode === 0) {
                 let {id, login, email} = response.data.data;
-                this.props.setAuthUserData(id, login, email)
-            }
-        })
-    }
+                this.props.setAuthUserData({id, login, email})
+            }})}
 
     render() {
-
         return <>
             {/*{this.props.isFetching ? <Preloader/> : null}*/}
-            <Header {...this.props.state} />
+            <Header  {...this.props} />
         </>
-    }
-}
+    }}
 
 const mapStateToProps = (state: RootReduxState): MSTPType => {
-    debugger;
     return {
-        state: state.auth
-        // isAuth: state.auth.isAuth,
+        state: state.auth.dataUser,
+        isAuth: state.auth.isAuth,
         // login: state.auth.login,
-        // email: state.auth.email,
-        // isFetching: state.usersPage.isFetching,
-    }
-}
+        // email: state.auth.email
+    }}
 
 export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer);

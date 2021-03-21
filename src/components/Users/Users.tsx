@@ -35,16 +35,16 @@ const Users = (props: PropsType) => {
         {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <NavLink to='/profile'>
+                        <NavLink to={'/profile/' + u.id}>
                         <img src={u.photos?.small ? u.photos?.small : userPhoto} className={styles.usersPhoto}/>
                         </NavLink>
                     </div>
                     <div>
                         {u.followed
                             ? <button onClick={() => {
-                                axios.delete(`https://social-network.samuraijs.com/api/1.0/unfollow/${u.id}`, {
+                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                     withCredentials: true,
-                                    headers: {'API-KEY': 'e686ebc1-ef5e-4f7e-8855-ba4ce4f90758'}
+                                    headers: {'API-KEY': 'd5df1483-fabd-4509-9f07-cc778848b14b'}
                                 }).then(response => {
                                     if (response.data.resultCode === 0) {
                                         props.unfollow(u.id)
@@ -54,7 +54,7 @@ const Users = (props: PropsType) => {
                             : <button onClick={() => {
                                 axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                     withCredentials: true,
-                                    headers: {'API-KEY': 'e686ebc1-ef5e-4f7e-8855-ba4ce4f90758'}
+                                    headers: {'API-KEY': 'd5df1483-fabd-4509-9f07-cc778848b14b'}
                                 }).then(response => {
                                     if (response.data.resultCode === 0) {
                                         props.follow(u.id)
