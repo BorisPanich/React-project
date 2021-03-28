@@ -8,7 +8,7 @@ import usersReducer, {
     setUsers,
     setTotalUsersCount,
     toggleIsFetching,
-    unfollow
+    unfollow, toggleIsFollowingProcess, getUsersThunkCreator
 } from "./usersReducer";
 import authReducer from "./authReducer";
 
@@ -57,7 +57,9 @@ export type ActionsTypes = (
     ReturnType<typeof setCurrentPage> |
     ReturnType<typeof setTotalUsersCount> |
     ReturnType<typeof toggleIsFetching> |
-    ReturnType<typeof setUsersProfile>
+    ReturnType<typeof setUsersProfile> |
+    ReturnType<typeof toggleIsFollowingProcess>
+    // ReturnType<typeof getUsersThunkCreator>
     );
 
 let reducers = combineReducers({

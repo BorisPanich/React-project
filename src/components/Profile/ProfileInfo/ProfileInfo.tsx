@@ -1,9 +1,10 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
 import {Preloader} from "../../common/Preloader/Preloader";
+import {ProfileType} from "../../../redux/profileReducer";
 
 type ProfileInfoType = {
-    profile: any // !!!!!!!!!!!!!!!!!!
+    profile: ProfileType | null // !!!!!!!!!!!!!!!!!!
 }
 
 const ProfileInfo = (props: ProfileInfoType) => {

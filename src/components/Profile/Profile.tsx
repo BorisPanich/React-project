@@ -1,12 +1,13 @@
 import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostContainer from "./MyPost/MyPostContainer";
+import {ProfileType} from "../../redux/profileReducer";
 
-type ProfileType = {
-    profile: any
+type ProfilePropsType = {
+    profile: ProfileType | null // !!!!!!!!!!!!!!
 }
 
-const Profile: React.FC<ProfileType> = (props) => {
+const Profile: React.FC<ProfilePropsType> = (props) => {
 
     return (
         <div>
