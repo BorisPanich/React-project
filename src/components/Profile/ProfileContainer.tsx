@@ -9,16 +9,16 @@ import {DataUserType} from "../../redux/authReducer";
 import {usersAPI} from "../api/API";
 
 type PathPropsType = {
-    userId: string //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    userId: string
 }
 
 type MapStatePropsType = {
-    profile: ProfileType | null //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    profile: ProfileType | null
 }
 
 type MapDispatchToPropsType = {
     setUsersProfile: (data: DataUserType) => void
-    getUsersProfile: (userId: number) => void        //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    getUsersProfile: (userId: number) => void
 }
 
 type OwnPropsType = MapStatePropsType & MapDispatchToPropsType
@@ -27,7 +27,7 @@ type PropsType = RouteComponentProps<PathPropsType> & OwnPropsType
 class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        let userId = Number(this.props.match.params.userId); //+
+        let userId = Number(this.props.match.params.userId); //+this.props.match.params.userId
         if (!userId) {
             userId = 2;
         }
