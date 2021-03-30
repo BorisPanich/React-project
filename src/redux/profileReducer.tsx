@@ -12,18 +12,21 @@ export type PostsType = {
     likes: number
     content: string | number
 }
-// export type ProfilePageType = {
-//     posts: Array<PostsType>
-//     profile: ProfileType | null
-// }
+export type ProfilePageType = {
+    posts: Array<PostType>
+    newPostText: string
+    profile: ProfileType
+}
 export type ProfileType = {
-    userId: number
+    aboutMe: string | null
+    contacts: userProfileContactsType
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
-    fullName: string
-    contacts: ContactsType
+    fullName: string | null
+    userId: number | null
     photos: PhotosType
 }
+
 export type ContactsType = {
     github: string | null
     vk: string | null
@@ -34,16 +37,46 @@ export type ContactsType = {
     youtube: string | null
     mainLink: string | null
 }
+type userProfileContactsType = {
+    facebook: string | null
+    website: string | null
+    vk: string | null
+    twitter: string | null
+    instagram: string | null
+    youtube: string | null
+    "github": string | null
+    mainLink: string | null
+}
 export type PhotosType = { small: string, large: string }
 
 
-let initialState = {
+let initialState: ProfilePageType = {
     posts: [
         {id: 1, message: 'Hallo, haw are you?', likes: 43},
         {id: 2, message: 'My first post', likes: 52},
     ] as Array<PostType>,
     newPostText: '',
-    profile: null
+    profile: {
+        aboutMe: null,
+        contacts: {
+            facebook: null,
+            website: null,
+            vk: null,
+            twitter: null,
+            instagram: null,
+            youtube: null,
+            github: null,
+            mainLink: null
+        },
+        lookingForAJob: true,
+        lookingForAJobDescription: null,
+        fullName: null,
+        userId: null,
+        photos: {
+            small: '',
+            large: ''
+        }
+    }
 }
 
 export type PrfReducerInitialStateType = typeof initialState;
@@ -82,9 +115,11 @@ const profileReducer = (state: PrfReducerInitialStateType = initialState, action
 export const addPost = () => ({type: "ADD_POST"} as const);
 export const updateNewPostText = (newText: string) =>
     ({type: "UPDATE_NEW_POST_TEXT", newText: newText} as const);
-export const setUsersProfile = (profile: any) => ({type: "SET_USER_PROFILE", profile} as const);   // !!!!!!!!!!ANY
+export const setUsersProfile = (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const);
 
-export const getUsersProfile = (userId: number) => (dispatch: Dispatch<ActionsTypes>) => {                             // !!!!!!!!!!ANY
+// Thunk
+
+export const getUsersProfile = (userId: number) => (dispatch: Dispatch<ActionsTypes>) => {
     usersAPI.getProfile(userId).then(response => {
         dispatch(setUsersProfile(response.data));
     })

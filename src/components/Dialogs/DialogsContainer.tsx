@@ -18,16 +18,6 @@ const mapStateToProps = (state: RootReduxState): MapStateToPropsType => {
         dialogsPage: state.dialogsPage
     }
 }
-// const mapDispatchToProps = (dispatch: Dispatch<ActionsTypes>): MapDispatchToPropsType => {
-//     return {
-//         updateNewMessageText: (newMText: string) => {
-//             dispatch(updateNewMessageTextAC(newMText))
-//         },
-//         addMessageText: (newMText: string) => {
-//             dispatch(addMessageTextAC(newMText))
-//         }
-//     }
-// }
 
 const DialogsContainer = connect(mapStateToProps, {updateNewMessageText, addMessageText})(Dialogs);
 

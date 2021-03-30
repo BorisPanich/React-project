@@ -2,8 +2,7 @@ import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
 import {RootReduxState} from "../../redux/redux-store";
-import {DataUserType, setAuthUserData} from "../../redux/authReducer";
-import {authAPI} from "../api/API";
+import {DataUserType, getAuthUserDataTh} from "../../redux/authReducer";
 
 type MSTPType = {
     state: DataUserType
@@ -13,7 +12,8 @@ type MSTPType = {
     // isFetching: boolean
 }
 type MDTPType = {
-    setAuthUserData: (data: DataUserType) => void
+    // setAuthUserData: (data: DataUserType) => void
+    getAuthUserDataTh: () => void
     // toggleIsFetching: (isFetching: boolean) => void
 }
 
@@ -22,15 +22,7 @@ export type HeaderContainerPropsType = MSTPType & MDTPType
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
 
     componentDidMount() {
-        // this.props.toggleIsFetching(true);
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me}`, {withCredentials: true}
-
-        authAPI.me().then(response => {
-            // this.props.toggleIsFetching(false);
-            if (response.data.resultCode === 0) {
-                this.props.setAuthUserData(response.data.data)
-            }
-        })
+        this.props.getAuthUserDataTh()
     }
 
     render() {
@@ -51,4 +43,4 @@ const mapStateToProps = (state: RootReduxState): MSTPType => {
     }
 }
 
-export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer);
+export default connect(mapStateToProps, {getAuthUserDataTh})(HeaderContainer);
