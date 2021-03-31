@@ -6,6 +6,7 @@ import {addMessageText, DlgReducerInitialStateType, updateNewMessageText} from "
 
 type MapStateToPropsType = {
     dialogsPage: DlgReducerInitialStateType
+    isAuth: boolean
 }
 type MapDispatchToPropsType = {
     updateNewMessageText: (newMText: string) => void
@@ -15,7 +16,8 @@ export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: RootReduxState): MapStateToPropsType => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.auth.isAuth
     }
 }
 

@@ -14,6 +14,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from './components/Login/Login';
 
 export type AppType = {
     // state: RootStateType
@@ -36,6 +37,7 @@ const App: React.FC<AppType> = (props) => {
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/settings' render={() => <Settings/>}/>
                     <Route path='/sidebar' render={() => <Sidebar/>}/>
+                    <Route path='/login' render={() => <Login/>}/>
                 </div>
             </div>
         </BrowserRouter>)
