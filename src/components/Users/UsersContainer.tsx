@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {connect} from "react-redux";
 import {
     follow,
@@ -9,6 +9,8 @@ import {
 import {RootReduxState} from "../../redux/redux-store";
 import Users from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -35,26 +37,10 @@ export type UserPropsType = MapStateToPropsType & MapDispatchToPropsType
 class UsersContainer extends React.Component<UserPropsType> {
 
     componentDidMount() {
-
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
-
-        // this.props.toggleIsFetching(true);
-        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-        //     // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true}).then(response => {
-        //     this.props.toggleIsFetching(false);
-        //     this.props.setUsers(data.items)
-        //     this.props.setTotalUsersCount(data.totalCount);
-        // })
     }
 
     onPageChanged = (pageNumber: number) => {
-        // this.props.setCurrentPage(pageNumber);
-        // this.props.toggleIsFetching(true);
-        // usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-        //     // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {withCredentials: true}).then(response => {
-        //     this.props.toggleIsFetching(false);
-        //     this.props.setUsers(data.items);
-        // })
         this.props.getUsers(pageNumber, this.props.pageSize);
     }
 
@@ -83,6 +69,14 @@ const mapStateToProps = (state: RootReduxState): MapStateToPropsType => {
     }
 }
 
-export default connect(mapStateToProps, {
-    follow, unfollow, setCurrentPage, toggleIsFollowingProcess, getUsers
-})(UsersContainer);
+// let AuthRedirectComponent = withAuthRedirect(UsersContainer);
+//
+// export const connect(mapStateToProps, {
+//     follow, unfollow, setCurrentPage, toggleIsFollowingProcess, getUsers
+// })(AuthRedirectComponent);
+
+export default compose<ComponentType> (
+    connect(mapStateToProps, {follow, unfollow, setCurrentPage, toggleIsFollowingProcess, getUsers}),
+    withAuthRedirect
+)
+(UsersContainer);
