@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import profileReducer, {addPost, setUsersProfile, updateNewPostText} from "./profileReducer";
+import profileReducer, {addPost, setStatus, setUsersProfile, updateNewPostText} from "./profileReducer";
 import dialogsReducer, {addMessageText, updateNewMessageText} from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
 import usersReducer, {
@@ -58,7 +58,8 @@ export type ActionsTypes = (
     ReturnType<typeof setTotalUsersCount> |
     ReturnType<typeof toggleIsFetching> |
     ReturnType<typeof setUsersProfile> |
-    ReturnType<typeof toggleIsFollowingProcess>
+    ReturnType<typeof toggleIsFollowingProcess> |
+    ReturnType<typeof setStatus>
     // ReturnType<typeof getUsers>          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     );
 

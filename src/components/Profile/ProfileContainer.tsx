@@ -2,7 +2,7 @@ import React, {ComponentType} from 'react';
 import Profile from './Profile';
 import {connect} from "react-redux";
 import {RootReduxState} from "../../redux/redux-store";
-import {getUsersProfile, ProfileType} from "../../redux/profileReducer";
+import {getStatus, getUsersProfile, ProfilePageType, ProfileType, updateStatus} from "../../redux/profileReducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -12,9 +12,12 @@ type PathPropsType = {
 }
 type MapStatePropsType = {
     profile: ProfileType
+    status: string
 }
 type MapDispatchToPropsType = {
     getUsersProfile: (userId: number) => void
+    getStatus: (userId: number) => void
+    updateStatus: (status: string) => void
 }
 
 type OwnPropsType = MapStatePropsType & MapDispatchToPropsType
@@ -28,12 +31,16 @@ class ProfileContainer extends React.Component<PropsType> {
             userId = 2;
         }
         this.props.getUsersProfile(userId);
+        this.props.getStatus(userId);
     }
 
     render() {
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile}/>
+                <Profile {...this.props} profile={this.props.profile}
+                         status={this.props.status}
+                         updateStatus={this.props.updateStatus}
+                />
             </div>
         )
     }
@@ -42,6 +49,7 @@ class ProfileContainer extends React.Component<PropsType> {
 const mapStateToProps = (state: RootReduxState): MapStatePropsType => {
     return {
         profile: state.profilePage.profile,
+        status: state.profilePage.status,
     }
 }
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
@@ -49,7 +57,7 @@ const mapStateToProps = (state: RootReduxState): MapStatePropsType => {
 // export const connect(mapStateToProps, {getUsersProfile})(withRouter(withAuthRedirect(ProfileContainer)))
 
 export default compose<ComponentType> (
-    connect(mapStateToProps, {getUsersProfile}),
+    connect(mapStateToProps, {getUsersProfile, getStatus, updateStatus}),
     withRouter,
     withAuthRedirect
 )
