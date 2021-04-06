@@ -7,10 +7,11 @@ import usersReducer, {
     setUsers,
     setTotalUsersCount,
     toggleIsFetching,
-    toggleIsFollowingProcess, getUsers, followSuccess, unfollowSuccess
+    toggleIsFollowingProcess, followSuccess, unfollowSuccess
 } from "./usersReducer";
 import authReducer from "./authReducer";
 import thunkMiddleware from "redux-thunk";
+import { reducer as formReducer } from 'redux-form';
 
 
 export type PostType = {
@@ -60,7 +61,6 @@ export type ActionsTypes = (
     ReturnType<typeof setUsersProfile> |
     ReturnType<typeof toggleIsFollowingProcess> |
     ReturnType<typeof setStatus>
-    // ReturnType<typeof getUsers>          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     );
 
 let reducers = combineReducers({
@@ -68,7 +68,8 @@ let reducers = combineReducers({
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 })
 
 export type RootReduxState = ReturnType<typeof reducers>

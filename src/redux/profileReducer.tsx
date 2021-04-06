@@ -1,5 +1,5 @@
 import {ActionsTypes, PostType} from "./redux-store";
-import {profileAPI, usersAPI} from "../components/api/API";
+import {profileAPI} from "../components/api/API";
 import {Dispatch} from "redux";
 
 const ADD_POST = 'ADD_POST';
@@ -17,7 +17,7 @@ export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
     profile: ProfileType
-    status: any             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    status: string
 }
 export type ProfileType = {
     aboutMe: string | null
