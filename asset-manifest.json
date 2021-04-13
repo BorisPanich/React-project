@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/React-project/static/css/main.cb923ecb.chunk.css",
+    "main.js": "/React-project/static/js/main.2c72a071.chunk.js",
+    "main.js.map": "/React-project/static/js/main.2c72a071.chunk.js.map",
+    "runtime-main.js": "/React-project/static/js/runtime-main.ac30d2a2.js",
+    "runtime-main.js.map": "/React-project/static/js/runtime-main.ac30d2a2.js.map",
+    "static/js/2.8e149217.chunk.js": "/React-project/static/js/2.8e149217.chunk.js",
+    "static/js/2.8e149217.chunk.js.map": "/React-project/static/js/2.8e149217.chunk.js.map",
+    "index.html": "/React-project/index.html",
+    "static/css/main.cb923ecb.chunk.css.map": "/React-project/static/css/main.cb923ecb.chunk.css.map",
+    "static/js/2.8e149217.chunk.js.LICENSE.txt": "/React-project/static/js/2.8e149217.chunk.js.LICENSE.txt",
+    "static/js/main.2c72a071.chunk.js.LICENSE.txt": "/React-project/static/js/main.2c72a071.chunk.js.LICENSE.txt",
+    "static/media/explosionPreloader.d0548f55.gif": "/React-project/static/media/explosionPreloader.d0548f55.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ac30d2a2.js",
+    "static/js/2.8e149217.chunk.js",
+    "static/css/main.cb923ecb.chunk.css",
+    "static/js/main.2c72a071.chunk.js"
+  ]
+}
