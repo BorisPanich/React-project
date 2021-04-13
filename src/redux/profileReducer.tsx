@@ -3,7 +3,7 @@ import {profileAPI} from "../components/api/API";
 import {Dispatch} from "redux";
 
 const ADD_POST = 'ADD_POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
+// const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
@@ -89,7 +89,7 @@ const profileReducer = (state: PrfReducerInitialStateType = initialState, action
         case ADD_POST: {
             const newPost = {
                 id: new Date().getTime(),
-                message: state.newPostText,
+                message: action.newPostText,
                 likes: 0,
             }
             return {
@@ -98,12 +98,12 @@ const profileReducer = (state: PrfReducerInitialStateType = initialState, action
                 newPostText: ''
             }
         }
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText
-            }
-        }
+        // case UPDATE_NEW_POST_TEXT: {
+        //     return {
+        //         ...state,
+        //         newPostText: action.newText
+        //     }
+        // }
         case SET_USER_PROFILE: {
             return {
                 ...state,
@@ -121,9 +121,9 @@ const profileReducer = (state: PrfReducerInitialStateType = initialState, action
     }
 }
 
-export const addPost = () => ({type: "ADD_POST"} as const);
-export const updateNewPostText = (newText: string) =>
-    ({type: "UPDATE_NEW_POST_TEXT", newText: newText} as const);
+export const addPostAC = (newPostText: any) => ({type: "ADD_POST", newPostText} as const);     //!!!!!!!!!!!!!!
+// export const updateNewPostText = (newText: string) =>
+//     ({type: "UPDATE_NEW_POST_TEXT", newText: newText} as const);
 export const setUsersProfile = (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const);
 export const setStatus = (status: string) => ({type: "SET_STATUS", status} as const);
 

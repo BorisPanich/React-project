@@ -1,7 +1,7 @@
 import {ActionsTypes, DialogType, MessageType} from "./redux-store";
 
 const ADD_MESSAGE_TEXT = 'ADD-MESSAGE-TEXT';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+// const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
 let initialState = {
     dialogs: [
@@ -17,7 +17,7 @@ let initialState = {
         {id: 1, message: 'Hello!'},
         {id: 2, message: 'Haw are you?'},
     ] as Array<MessageType>,
-    newMessageText: ''
+    // newMessageText: ''
 }
 
 export type DlgReducerInitialStateType = typeof initialState;
@@ -26,25 +26,25 @@ const dialogsReducer = (state: DlgReducerInitialStateType = initialState, action
 
     switch (action.type) {
         case ADD_MESSAGE_TEXT:
-            let newMassage = state.newMessageText
+            let newMassage = action.newMessageText
             return {
                 ...state,
-                newMessageText: '',
+                // newMessageText: '',
                 messages: [...state.messages, {id: 4, message: newMassage}]
             };
-        case UPDATE_NEW_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageText: action.newMText
-            }
+        // case UPDATE_NEW_MESSAGE_TEXT:
+        //     return {
+        //         ...state,
+        //         newMessageText: action.newMText
+        //     }
         default:
             return state
     }
 }
 
-export const addMessageText = (text: string) =>
-    ({type: "ADD-MESSAGE-TEXT", text: text} as const);
-export const updateNewMessageText = (newMText: string) =>
-    ({type: "UPDATE-NEW-MESSAGE-TEXT", newMText: newMText} as const)
+export const addMessageTextAC = (newMessageText: string) =>
+    ({type: "ADD-MESSAGE-TEXT", newMessageText} as const);
+// export const updateNewMessageText = (newMText: string) =>
+//     ({type: "UPDATE-NEW-MESSAGE-TEXT", newMText: newMText} as const)
 
 export default dialogsReducer;

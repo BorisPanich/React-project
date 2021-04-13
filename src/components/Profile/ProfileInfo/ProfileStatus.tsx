@@ -3,7 +3,7 @@ import s from './ProfileInfo.module.css';
 
 type ProfileStatusType = {
     status: string
-    updateStatus: (status: string) => void
+    // updateStatus: (status: string) => void
 }
 
 class ProfileStatus extends React.Component<ProfileStatusType> {
@@ -21,7 +21,7 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
         this.setState({
             editMode: false
         });
-        this.props.updateStatus(this.state.status)
+        // this.props.updateStatus(this.state.status)
     }
     onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({

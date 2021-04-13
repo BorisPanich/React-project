@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import profileReducer, {addPost, setStatus, setUsersProfile, updateNewPostText} from "./profileReducer";
-import dialogsReducer, {addMessageText, updateNewMessageText} from "./dialogsReducer";
+import profileReducer, {addPostAC, setStatus, setUsersProfile} from "./profileReducer";
+import dialogsReducer, {addMessageTextAC} from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
 import usersReducer, {
     setCurrentPage,
@@ -48,10 +48,10 @@ export type RootStateType = {
 }
 
 export type ActionsTypes = (
-    ReturnType<typeof addPost> |
-    ReturnType<typeof updateNewPostText> |
-    ReturnType<typeof addMessageText> |
-    ReturnType<typeof updateNewMessageText> |
+    ReturnType<typeof addPostAC> |
+    // ReturnType<typeof updateNewPostText> |
+    ReturnType<typeof addMessageTextAC> |
+    // ReturnType<typeof updateNewMessageText> |
     ReturnType<typeof followSuccess> |
     ReturnType<typeof unfollowSuccess> |
     ReturnType<typeof setUsers> |
