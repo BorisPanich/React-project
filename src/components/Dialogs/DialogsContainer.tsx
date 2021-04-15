@@ -14,7 +14,7 @@ type MapStateToPropsType = {
 }
 type MapDispatchToPropsType = {
     // updateNewMessageText: (newMText: string) => void
-    addMessageText: (data: { newMText: string }) => void
+    addMessageText: (newMText: string ) => void
     // addMessage: (value: { messageText: string }) => void
 }
 export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
