@@ -33,7 +33,6 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <Field type="checkbox"
                        name="rememberMe"
                        component={FormElementInput}
-                       validate={[required, minLength2, maxLength15]}
                 /> remember me
             </div>
             <div>

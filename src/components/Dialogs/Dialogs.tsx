@@ -2,14 +2,18 @@ import React from "react";
 import s from './Dialogs.module.css';
 import DialogsItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
-import {DialogsPropsType} from "./DialogsContainer";
 import {InjectedFormProps, Field, reduxForm} from "redux-form";
 import {FormElementTextarea} from "../common/FormControls/FormControls";
 import {maxLength, minLength, required} from "../../utils/validations";
-
+import {DlgReducerInitialStateType} from "../../redux/dialogsReducer";
 
 type FormDataType = {
     newMText: string
+}
+type DialogsPropsType = {
+    addMessageText: (newMText: string) => void
+    isAuth: boolean
+    dialogsPage: DlgReducerInitialStateType
 }
 
 const Dialogs = (props: DialogsPropsType) => {
@@ -27,7 +31,7 @@ const Dialogs = (props: DialogsPropsType) => {
     //     let newMText = e.currentTarget.value
     //     props.updateNewMessageText(newMText)
     // }
-    const addNewMessage = (data: FormDataType): void => {
+    const addNewMessage = (data: FormDataType) => {
         props.addMessageText(data.newMText)
     }
 
@@ -46,15 +50,15 @@ const Dialogs = (props: DialogsPropsType) => {
     )
 }
 
-const maxLength100 = maxLength(100);
-const minLength2 = minLength(2, 100);
+const maxLength20 = maxLength(20);
+const minLength2 = minLength(2, 20);
 
 const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div className={s.messageInput}>
                 <Field component={FormElementTextarea}
-                       validate={[required, maxLength100, minLength2]}
+                       validate={[required, maxLength20, minLength2]}
                        placeholder="send Message here"
                        name="newMessageText"/>
                 <div>
