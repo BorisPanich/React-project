@@ -15,7 +15,7 @@ import { reducer as formReducer } from 'redux-form';
 
 
 export type PostType = {
-    id?: number
+    id?: string
     message: string
     likes: number
 }

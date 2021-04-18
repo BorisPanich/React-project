@@ -11,7 +11,6 @@ type MapStateToPropsType = {
 }
 type MapDispatchToPropsType = {
     addPost: (newPostText: string) => void
-    // updateNewPostText: (postText: string) => void
 }
 export type MyPostPropsType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -22,7 +21,7 @@ const mapStateToProps = (state: RootReduxState): MapStateToPropsType => {
 }
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        addPost: (newPostText: string) => {
+        addPost: (newPostText: any) => {            //!!!!!!!!!!!!!!!!!
             dispatch(addPostAC(newPostText))
         }
     }

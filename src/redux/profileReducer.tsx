@@ -1,6 +1,7 @@
 import {ActionsTypes, PostType} from "./redux-store";
 import {profileAPI} from "../components/api/API";
 import {Dispatch} from "redux";
+import {v1} from "uuid";
 
 const ADD_POST = 'ADD_POST';
 // const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
@@ -15,7 +16,7 @@ export type PostsType = {
 }
 export type ProfilePageType = {
     posts: Array<PostType>
-    newPostText: string
+    newPostText?: string        //!!!!!!!!!!!!
     profile: ProfileType
     status: string
 }
@@ -54,10 +55,10 @@ export type PhotosType = { small: string, large: string }
 
 let initialState: ProfilePageType = {
     posts: [
-        {id: 1, message: 'Hallo, haw are you?', likes: 43},
-        {id: 2, message: 'My first post', likes: 52},
+        {id: v1(), message: 'Hallo, haw are you?', likes: 43},
+        {id: v1(), message: 'My first post', likes: 52}
     ] as Array<PostType>,
-    newPostText: '',
+    // newPostText: '',
     profile: {
         aboutMe: null,
         contacts: {
@@ -84,26 +85,14 @@ let initialState: ProfilePageType = {
 
 export type PrfReducerInitialStateType = typeof initialState;
 
-const profileReducer = (state: PrfReducerInitialStateType = initialState, action: ActionsTypes): PrfReducerInitialStateType => {
+const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
     switch (action.type) {
-        case ADD_POST: {
-            const newPost = {
-                id: new Date().getTime(),
-                message: action.newPostText,
-                likes: 0,
-            }
+        case ADD_POST:
             return {
                 ...state,
-                posts: [...state.posts, newPost],
+                posts: [{id: v1(), message: action.value.newPostText, likes: 44}, ...state.posts],
                 newPostText: ''
             }
-        }
-        // case UPDATE_NEW_POST_TEXT: {
-        //     return {
-        //         ...state,
-        //         newPostText: action.newText
-        //     }
-        // }
         case SET_USER_PROFILE: {
             return {
                 ...state,
@@ -121,9 +110,7 @@ const profileReducer = (state: PrfReducerInitialStateType = initialState, action
     }
 }
 
-export const addPostAC = (newPostText: any) => ({type: "ADD_POST", newPostText} as const);     //!!!!!!!!!!!!!!
-// export const updateNewPostText = (newText: string) =>
-//     ({type: "UPDATE_NEW_POST_TEXT", newText: newText} as const);
+export const addPostAC = (value: {newPostText: string}) => ({type: "ADD_POST", value} as const);
 export const setUsersProfile = (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const);
 export const setStatus = (status: string) => ({type: "SET_STATUS", status} as const);
 
@@ -131,18 +118,18 @@ export const setStatus = (status: string) => ({type: "SET_STATUS", status} as co
 
 export const getUsersProfile = (userId: number) => (dispatch: Dispatch<ActionsTypes>) => {
     profileAPI.getProfile(userId).then(response => {
-        dispatch(setUsersProfile(response.data));
+        dispatch(setUsersProfile(response));
     })
 };
 export const getStatus = (userId: number) => (dispatch: Dispatch<ActionsTypes>) => {
     profileAPI.getStatus(userId).then(response => {
-        dispatch(setStatus(response.data));
+        dispatch(setStatus(response));
     })
 };
 export const updateStatus = (status: string) => (dispatch: Dispatch<ActionsTypes>) => {
     profileAPI.updateStatus(status).then(response => {
-        if (response.data.resultCode === 0) {
-            dispatch(setStatus(status));
+        if (response.resultCode === 0) {
+            dispatch(setStatus(response.statusText));
         }
     })
 };

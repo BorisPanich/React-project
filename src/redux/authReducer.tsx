@@ -4,22 +4,20 @@ import {Dispatch} from "redux";
 const SET_DATA_AUTH_STATE = 'SET_DATA_AUTH_STATE';
 
 export type DataUserType = {
-    id: number | null
-    login: string | null
-    email: string | null
-    // isFetching: boolean
-}
-type InitialStateType = {
-    dataUser: DataUserType
-    isAuth: boolean
+    id?: number | null
+    login?: string | null
+    email?: string | null
+    isFetching?: boolean
+    isAuth?: boolean
+    logout?: () => void
 }
 
-let initialState: InitialStateType  = {
+let initialState = {
     dataUser: {} as DataUserType,
-    isAuth: false,
+    isAuth: false
 }
 
-// export type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 type ActionsType = SetAuthUserDataActionType
 type SetAuthUserDataActionType = ReturnType<typeof setAuthUserData>
 
@@ -28,23 +26,45 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
         case SET_DATA_AUTH_STATE:
             return {
                 ...state,
-                dataUser: {...state.dataUser, ...action.data},
-                isAuth: true
+                ...action.data,
+                isAuth: action.isAuth
+                // dataUser: {...state.dataUser, ...action.data},
             }
         default:
             return state;
-    }}
+    }
+}
 
-export const setAuthUserData = (data: DataUserType) => ({type: "SET_DATA_AUTH_STATE", data} as const);
+export const setAuthUserData = (data: DataUserType, isAuth: boolean) => ({type: "SET_DATA_AUTH_STATE", data, isAuth} as const);
+
 // Thunk
 
 export const getAuthUserDataTh = () => (dispatch: Dispatch<ActionsType>) => {
+    authAPI.me().then(response => {
+        // this.props.toggleIsFetching(false);
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUserData(response.data.data, true));
+        }
+    })
+}
 
-        authAPI.me().then(response => {
+export const login = (email: string | null, password: string | null, rememberMe: boolean = false, captcha: string | null) =>
+    (dispatch: Dispatch<ActionsType>) => {
+        authAPI.login(email, password, rememberMe, captcha).then(response => {
             // this.props.toggleIsFetching(false);
             if (response.data.resultCode === 0) {
-                // let {id, login, email} = response.data.data
-                dispatch(setAuthUserData(response.data.data));
+                dispatch(setAuthUserData(response.data.data, true))
+                // dispatch(setAuthUserData({email: null, id: null, login: null, isAuth: false, isFetching: false}, true))
+            }
+        })
+    }
+export const logout = () =>
+    (dispatch: Dispatch<ActionsType>) => {
+        authAPI.logout().then(response => {
+            // this.props.toggleIsFetching(false);
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserData({email: null, id: null, login: null}, false))
+                // dispatch(setAuthUserData({email: null, id: null, login: null, isAuth: false, isFetching: false}, false))
             }
         })
     }

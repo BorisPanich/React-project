@@ -14,38 +14,61 @@ const instance = axios.create({
 export const authAPI = {
     me() {
         return instance.get(`auth/me`)
+            .then(response => {
+                return response.data
+            })
+    },
+    login(email: string | null, password: string | null, rememberMe: boolean = false, captcha: string | null) {
+        return instance.post(`auth/login`, {email, password, rememberMe, captcha})
+            .then(response => {
+                return response.data
+            })
+    },
+    logout() {
+        return instance.delete(`auth/login`)
+            .then(response => {
+                return response.data
+            })
     }
 }
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+            .then(response => response.data)
     },
     unfollow(id: number) {
-        return instance.delete(`follow/${id}`).then(response => {
-            return response.data
-        })
+        return instance.delete(`follow/${id}`)
+            .then(response => {
+                return response.data
+            })
     },
     follow(id: number) {
-        return instance.post(`follow/${id}`, {}).then(response => {
-            return response.data
-        })
-    },
-    // getProfile(userId: number) {
-    //     console.warn('Obsolete method. Please profileAPI object.')
-    //     return profileAPI.getProfile(`profile/` + userId);
-    //     }
+        return instance.post(`follow/${id}`, {})
+            .then(response => {
+                return response.data
+            })
+    }
 }
 
 export const profileAPI = {
     getProfile(userId: number | undefined) {
-        return instance.get(`profile/` + userId);
+        return instance.get(`profile/` + userId)
+            .then(response => {
+                return response.data
+            })
     },
     getStatus(userId: number | undefined) {
-        return instance.get(`profile/status/` + userId);
+        return instance.get(`profile/status/` + userId)
+            .then(response => {
+                return response.data
+            })
     },
     updateStatus(status: string) {
         return instance.put(`profile/status/`, {status: status})
+            .then(response => {
+                return response.data
+            })
     }
 }
 

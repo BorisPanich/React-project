@@ -8,18 +8,12 @@ import {FormElementTextarea} from "../../common/FormControls/FormControls";
 
 
 const MyPost = (props: MyPostPropsType) => {
-    let lockalState = props.profilePage
-    let postsElement = lockalState.posts.map(p => <Post message={p.message} likes={p.likes}/>)
-
-    // let newPostText = lockalState.newPostText
+    let localState = props.profilePage
+    let postsElement = localState.posts.map(p => <Post message={p.message} likes={p.likes}/>)
 
     const addNewPost = (data: FormDataType) => {
         props.addPost(data.newPostText)
     }
-    // const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    //     let newText = e.currentTarget.value;
-    //     props.updateNewPostText(newText)
-    // }
 
     return (
         <div className={s.myPost}>

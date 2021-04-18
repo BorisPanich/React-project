@@ -17,20 +17,11 @@ type DialogsPropsType = {
 }
 
 const Dialogs = (props: DialogsPropsType) => {
-    let lockalState = props.dialogsPage
+    let localState = props.dialogsPage
 
-    let dialogsElement = lockalState.dialogs.map((d) => <DialogsItem id={d.id} name={d.name}/>)
-    let messagesElement = lockalState.messages.map((m) => <Message message={m.message}/>)
-    // let newMessageText = lockalState.newMessageText
+    let dialogsElement = localState.dialogs.map((d) => <DialogsItem id={d.id} name={d.name}/>)
+    let messagesElement = localState.messages.map((m) => <Message message={m.message}/>)
 
-    // const onClickAddMessage = () => {
-    //     props.addMessageText(newMessageText)
-    // }
-    //
-    // const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    //     let newMText = e.currentTarget.value
-    //     props.updateNewMessageText(newMText)
-    // }
     const addNewMessage = (data: FormDataType) => {
         props.addMessageText(data.newMText)
     }
