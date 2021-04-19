@@ -17,7 +17,6 @@ type MapStatePropsType = {
 type MapDispatchToPropsType = {
     getUsersProfile: (userId: number) => void
     getStatus: (userId: number) => void
-    // updateStatus: (status: string) => void
 }
 
 type OwnPropsType = MapStatePropsType & MapDispatchToPropsType
@@ -39,7 +38,6 @@ class ProfileContainer extends React.Component<PropsType> {
             <div>
                 <Profile {...this.props} profile={this.props.profile}
                          status={this.props.status}
-                         // updateStatus={this.props.updateStatus}
                 />
             </div>
         )
@@ -52,9 +50,6 @@ const mapStateToProps = (state: RootReduxState): MapStatePropsType => {
         status: state.profilePage.status,
     }
 }
-// let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-// let WithUrlDataContainerComponent = withRouter(withAuthRedirect(ProfileContainer));
-// export const connect(mapStateToProps, {getUsersProfile})(withRouter(withAuthRedirect(ProfileContainer)))
 
 export default compose<ComponentType> (
     connect(mapStateToProps, {getUsersProfile, getStatus}),
