@@ -1,5 +1,6 @@
 import {authAPI} from "../components/api/API";
 import {Dispatch} from "redux";
+import {stopSubmit} from "redux-form";
 
 const SET_DATA_AUTH_STATE = 'SET_DATA_AUTH_STATE';
 
@@ -48,12 +49,15 @@ export const getAuthUserDataTh = () => (dispatch: Dispatch<ActionsType>) => {
 }
 
 export const login = (email: string | null, password: string | null, rememberMe: boolean = false, captcha: string | null) =>
-    (dispatch: Dispatch<ActionsType>) => {
+    (dispatch: Dispatch<any>) => {          //!!!!!!!!!!!!!!!!! Type
         authAPI.login(email, password, rememberMe, captcha).then(response => {
             // this.props.toggleIsFetching(false);
             if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(response.data.data, true))
+                dispatch(getAuthUserDataTh())
                 // dispatch(setAuthUserData({email: null, id: null, login: null, isAuth: false, isFetching: false}, true))
+            } else {
+                let message = response.data.messages.length > 0 ? response.data.messages[0] : "Same error";
+                dispatch(stopSubmit("login", {_error: message}))
             }
         })
     }
@@ -63,7 +67,6 @@ export const logout = () =>
             // this.props.toggleIsFetching(false);
             if (response.data.resultCode === 0) {
                 dispatch(setAuthUserData({email: null, id: null, login: null}, false))
-                // dispatch(setAuthUserData({email: null, id: null, login: null, isAuth: false, isFetching: false}, false))
             }
         })
     }

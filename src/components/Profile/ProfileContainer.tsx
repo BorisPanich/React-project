@@ -13,6 +13,8 @@ type PathPropsType = {
 type MapStatePropsType = {
     profile: ProfileType
     status: string
+    myUserId: number
+    isAuth: boolean
 }
 type MapDispatchToPropsType = {
     getUsersProfile: (userId: number) => void
@@ -27,7 +29,7 @@ class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
         let userId = +this.props.match.params.userId; // Number(this.props.match.params.userId)
         if (!userId) {
-            userId = 2;
+            userId = this.props.myUserId;
         }
         this.props.getUsersProfile(userId);
         this.props.getStatus(userId);
@@ -36,7 +38,8 @@ class ProfileContainer extends React.Component<PropsType> {
     render() {
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile}
+                <Profile {...this.props}
+                         profile={this.props.profile}
                          status={this.props.status}
                 />
             </div>
@@ -48,6 +51,8 @@ const mapStateToProps = (state: RootReduxState): MapStatePropsType => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
+        myUserId: state.auth.dataUser.id,
+        isAuth: state.auth.isAuth
     }
 }
 
