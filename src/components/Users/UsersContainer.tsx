@@ -19,6 +19,7 @@ type MapStateToPropsType = {
     currentPage: number
     isFetching: boolean
     followingInProcess: Array<number>
+    isAuth: boolean
 }
 type MapDispatchToPropsType = {
     follow: (userId: number) => void
@@ -54,6 +55,7 @@ class UsersContainer extends React.Component<UserPropsType> {
                                                              unfollow={this.props.unfollow}
                                                              followingInProcess={this.props.followingInProcess}
                                                              toggleIsFollowingProcess={this.props.toggleIsFollowingProcess}
+                                                             isAuth={this.props.isAuth}
         />
     }
 }
@@ -66,17 +68,10 @@ const mapStateToProps = (state: RootReduxState): MapStateToPropsType => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         followingInProcess: state.usersPage.followingInProcess,
+        isAuth: state.auth.isAuth
     }
 }
 
-// let AuthRedirectComponent = withAuthRedirect(UsersContainer);
-//
-// export const connect(mapStateToProps, {
-//     follow, unfollow, setCurrentPage, toggleIsFollowingProcess, getUsers
-// })(AuthRedirectComponent);
-
-export default compose<ComponentType> (
-    connect(mapStateToProps, {follow, unfollow, setCurrentPage, toggleIsFollowingProcess, getUsers}),
-    withAuthRedirect
-)
-(UsersContainer);
+export default compose<ComponentType>(
+    connect(mapStateToProps, {follow, unfollow, setCurrentPage, toggleIsFollowingProcess, getUsers})
+)(UsersContainer);

@@ -14,6 +14,7 @@ type PropsType = {
     unfollow: (userId: number) => void
     followingInProcess: Array<number>
     toggleIsFollowingProcess: (isFetching: boolean, userId: number) => void
+    isAuth: boolean
 }
 
 const Users = (props: PropsType) => {
@@ -43,10 +44,14 @@ const Users = (props: PropsType) => {
                     <div>
                         {u.followed
                             ? <button disabled={props.followingInProcess.some(id => id === u.id)}
-                                      onClick={() => {props.unfollow(u.id)}}>Unfollow</button>
+                                      onClick={() => {
+                                          props.unfollow(u.id)
+                                      }}>Unfollow</button>
 
                             : <button disabled={props.followingInProcess.some(id => id === u.id)}
-                                      onClick={() => {props.follow(u.id)}}>Follow</button>
+                                      onClick={() => {
+                                          props.follow(u.id)
+                                      }}>Follow</button>
                         }
                     </div>
                 </span>

@@ -5,20 +5,10 @@ import App from './App';
 import store from "./redux/redux-store";
 import {Provider} from "react-redux";
 
-// export let renderEntereTree = () => {
 ReactDOM.render(
         <Provider store={store}>
-            <App/>
+            <App />
         </Provider>,
     document.getElementById('root'));
-// }
-// renderEntereTree();
-// store.subscribe(() => {
-//     renderEntereTree()
-// })
 
-// serviceWorker.unregister();
-
-// yarn add react-redux
-// yarn add @types/react-redux
 

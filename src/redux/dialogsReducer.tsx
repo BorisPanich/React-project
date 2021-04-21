@@ -17,7 +17,7 @@ let initialState = {
         {id: 1, message: 'Hello!'},
         {id: 2, message: 'Haw are you?'},
     ] as Array<MessageType>,
-    newMessageText: ''
+    // newMessageText: ''
 }
 
 export type DlgReducerInitialStateType = typeof initialState;

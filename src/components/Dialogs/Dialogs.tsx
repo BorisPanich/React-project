@@ -6,12 +6,13 @@ import {InjectedFormProps, Field, reduxForm} from "redux-form";
 import {FormElementTextarea} from "../common/FormControls/FormControls";
 import {maxLength, minLength, required} from "../../utils/validations";
 import {DlgReducerInitialStateType} from "../../redux/dialogsReducer";
+import {Redirect} from "react-router-dom";
 
 type FormDataType = {
     newMText: string
 }
 type DialogsPropsType = {
-    addMessageText: (newMText: string) => void
+    addMessageText: (value: {newMText: string}) => void
     isAuth: boolean
     dialogsPage: DlgReducerInitialStateType
 }
@@ -21,10 +22,13 @@ const Dialogs = (props: DialogsPropsType) => {
 
     let dialogsElement = localState.dialogs.map((d) => <DialogsItem id={d.id} name={d.name}/>)
     let messagesElement = localState.messages.map((m) => <Message message={m.message}/>)
+    // let newMessageBody = localState.newMessageText
 
-    const addNewMessage = (data: FormDataType) => {
-        props.addMessageText(data.newMText)
+    const addNewMessage = (value: FormDataType) => {
+        props.addMessageText(value)
     }
+
+    // if (!props.isAuth) return <Redirect to={"/login"} /> ;
 
     return (
         <div className={s.dialogs}>

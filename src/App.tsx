@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Dialogs from './components/Dialogs/Dialogs';
 import Header from "./components/Header/Header";
@@ -15,14 +15,28 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from './components/Login/Login';
+import {compose, Store } from 'redux';
+import {Preloader} from "./components/common/Preloader/Preloader";
+import { connect, ConnectedProps } from 'react-redux';
+import { initializedAppTC } from './redux/appReducer';
 
+type MapStateToPropsType = {
+    initializedSuccess: boolean
+}
+type MapDispatchToPropsType = {
+    initializedAppTC: () => void
+}
 export type AppType = {
-    // state: RootStateType
-    // dispatch: (action: ActionsTypes) => void
-    // store: StoreType
+    store: Store
 }
 
-const App: React.FC<AppType> = (props) => {
+const App: React.FC<AppType & MapStateToPropsType & MapDispatchToPropsType> = (props) => {
+    useEffect( () => {
+        props.initializedAppTC()}, [props.initializedSuccess])
+
+    if (!props.initializedSuccess) {
+        return <Preloader/>
+    }
 
     return (
         <BrowserRouter>
@@ -43,4 +57,11 @@ const App: React.FC<AppType> = (props) => {
         </BrowserRouter>)
 }
 
-export default App;
+let mapStateToProps = (state: RootReduxState): MapStateToPropsType => ({
+    initializedSuccess: state.app.initializedSuccess
+})
+
+const connector = connect(mapStateToProps, {initializedAppTC})
+export type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default compose<React.ComponentType>(connector)(App);

@@ -12,6 +12,7 @@ import usersReducer, {
 import authReducer from "./authReducer";
 import thunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from 'redux-form';
+import appReducer from "./appReducer";
 
 
 export type PostType = {
@@ -69,7 +70,8 @@ let reducers = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app: appReducer
 })
 
 export type RootReduxState = ReturnType<typeof reducers>
