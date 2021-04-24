@@ -11,6 +11,7 @@ import Users from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import { Redirect } from 'react-router-dom';
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -46,6 +47,8 @@ class UsersContainer extends React.Component<UserPropsType> {
     }
 
     render() {
+
+        if(!this.props.isAuth) return <Redirect to={'/Login'}/>
         return this.props.isFetching ? <Preloader/> : <Users totalUsersCount={this.props.totalUsersCount}
                                                              pageSize={this.props.pageSize}
                                                              currentPage={this.props.currentPage}

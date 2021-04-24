@@ -12,7 +12,7 @@ const MyPost = (props: MyPostPropsType) => {
     let postsElement = localState.posts.map(p => <Post message={p.message} likes={p.likes}/>)
 
     const addNewPost = (data: FormDataType) => {
-        props.addPost(data.newPostText)
+        props.addPost( {newPostText: data.newPostText})
     }
 
     return (

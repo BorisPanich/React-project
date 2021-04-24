@@ -58,6 +58,7 @@ type LoginPropsType = {
     login: (email: string | null, password: string | null, rememberMe: boolean, captcha: string | null) => void
     logout: () => void
     isAuth: boolean
+    // userId: number       //!!!!!!!!!!!!!!!!!!!!!
 }
 
 const Login = (props: LoginPropsType) => {
@@ -66,6 +67,7 @@ const Login = (props: LoginPropsType) => {
     }
     if (props.isAuth) {
         return <Redirect to={'/profile'}/>
+        // return <Redirect to={'/profile/' + userId}/>         //!!!!!!!!!!!!!!!!!!!!!!!!!
     }
     return <div>
         <h1>Login</h1>

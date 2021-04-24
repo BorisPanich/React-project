@@ -32,7 +32,7 @@ export type AppType = {
 
 const App: React.FC<AppType & MapStateToPropsType & MapDispatchToPropsType> = (props) => {
     useEffect( () => {
-        props.initializedAppTC()}, [props.initializedSuccess])
+        props.initializedAppTC()}, [])
 
     if (!props.initializedSuccess) {
         return <Preloader/>

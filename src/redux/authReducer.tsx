@@ -47,6 +47,8 @@ export const getAuthUserDataTh = () => (dispatch: Dispatch<ActionsType>) => {
         if (response.resultCode === 0) {
             let {id, login, email} = response.data
             dispatch(setAuthUserData(id, login, email, true));
+        } else {
+
         }
     })
 }

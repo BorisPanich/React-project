@@ -10,7 +10,7 @@ type MapStateToPropsType = {
     profilePage: PrfReducerInitialStateType
 }
 type MapDispatchToPropsType = {
-    addPost: (newPostText: string) => void
+    addPost: (value: {newPostText: string}) => void
 }
 export type MyPostPropsType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -21,8 +21,8 @@ const mapStateToProps = (state: RootReduxState): MapStateToPropsType => {
 }
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        addPost: (newPostText: any) => {            //!!!!!!!!!!!!!!!!!
-            dispatch(addPostAC(newPostText))
+        addPost: (value: {newPostText: string}) => {            //!!!!!!!!!!!!!!!!!
+            dispatch(addPostAC(value))
         }
     }
 }

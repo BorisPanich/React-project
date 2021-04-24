@@ -12,7 +12,7 @@ type FormDataType = {
     newMText: string
 }
 type DialogsPropsType = {
-    addMessageText: (value: {newMText: string}) => void
+    addMessageText: (newMText: string) => void
     isAuth: boolean
     dialogsPage: DlgReducerInitialStateType
 }
@@ -25,7 +25,7 @@ const Dialogs = (props: DialogsPropsType) => {
     // let newMessageBody = localState.newMessageText
 
     const addNewMessage = (value: FormDataType) => {
-        props.addMessageText(value)
+        props.addMessageText(value.newMText)
     }
 
     // if (!props.isAuth) return <Redirect to={"/login"} /> ;
