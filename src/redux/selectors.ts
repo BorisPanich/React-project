@@ -4,33 +4,60 @@ import { RootReduxState } from "./redux-store";
 
 // Users
 
-const Get = (state: RootReduxState) => {
+const GetUsers = (state: RootReduxState) => {
     return state.usersPage
 }
 
 // примитивный (простой) селектор
 const getUsers = (state: RootReduxState) => {
-    return Get(state).users
+    return GetUsers(state).users
 }
 // сложный (созданный с помощью библиотеки reselect) селектор, в который передается простой
 export const getUsersSelector = createSelector(getUsers, (users) => {
     return users.filter(u => true)
 })
 export const getPageSize = (state: RootReduxState) => {
-    return Get(state).pageSize
+    return GetUsers(state).pageSize
 }
 export const getTotalUsersCount = (state: RootReduxState) => {
-    return Get(state).totalUsersCount
+    return GetUsers(state).totalUsersCount
 }
 export const getCurrentPage = (state: RootReduxState) => {
-    return Get(state).currentPage
+    return GetUsers(state).currentPage
 }
 export const getIsFetching = (state: RootReduxState) => {
-    return Get(state).isFetching
+    return GetUsers(state).isFetching
 }
 export const getFollowingInProcess = (state: RootReduxState) => {
-    return Get(state).followingInProcess
+    return GetUsers(state).followingInProcess
 }
 export const getIsAuth = (state: RootReduxState) => {
     return state.auth.isAuth
 }
+
+//Headers
+
+const GetHeaders = (state: RootReduxState) => {
+    return state.auth
+}
+
+export const getLogin = (state: RootReduxState) => {
+    return state.auth.dataUser.login
+}
+
+//Profile
+
+const GetProfile = (state: RootReduxState) => {
+    return state.profilePage
+}
+
+export const getProfile= (state: RootReduxState) => {
+    return GetProfile(state).profile
+}
+export const getStatusSelector= (state: RootReduxState) => {
+    return GetProfile(state).status
+}
+export const getMyUserId= (state: RootReduxState) => {
+    return state.auth.dataUser.id
+}
+

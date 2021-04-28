@@ -3,6 +3,7 @@ import Header from "./Header";
 import {connect} from "react-redux";
 import {RootReduxState} from "../../redux/redux-store";
 import {getAuthUserDataTh, logout} from "../../redux/authReducer";
+import {getIsAuth, getLogin} from '../../redux/selectors';
 
 type MSTPType = {
     isAuth: boolean
@@ -27,8 +28,8 @@ const HeaderContainer: React.FC<HeaderContainerPropsType> = ({ isAuth, getAuthUs
 
 const mapStateToProps = (state: RootReduxState): MSTPType => {
     return {
-        isAuth: state.auth.isAuth,
-        login: state.auth.dataUser.login
+        isAuth: getIsAuth(state),
+        login: getLogin(state)
     }
 }
 

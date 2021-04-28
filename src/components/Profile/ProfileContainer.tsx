@@ -6,6 +6,8 @@ import {getStatus, getUsersProfile, ProfileType} from "../../redux/profileReduce
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {getIsAuth, getProfile,
+    getStatusSelector, getMyUserId} from '../../redux/selectors';
 
 type PathPropsType = {
     userId: string
@@ -51,10 +53,10 @@ class ProfileContainer extends React.Component<PropsType> {
 
 const mapStateToProps = (state: RootReduxState): MapStatePropsType => {
     return {
-        profile: state.profilePage.profile,
-        status: state.profilePage.status,
-        myUserId: state.auth.dataUser.id,
-        isAuth: state.auth.isAuth
+        profile: getProfile(state),
+        status: getStatusSelector(state),
+        myUserId: getMyUserId(state),
+        isAuth: getIsAuth(state)
     }
 }
 
