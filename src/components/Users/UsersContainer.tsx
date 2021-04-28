@@ -11,7 +11,11 @@ import Users from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
+import {
+    getSelectorUsers, getPageSize, getTotalUsersCount,
+    getCurrentPage, getIsFetching, getFollowingInProcess, getIsAuth
+} from '../../redux/selectors';
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -48,7 +52,7 @@ class UsersContainer extends React.Component<UserPropsType> {
 
     render() {
 
-        if(!this.props.isAuth) return <Redirect to={'/Login'}/>
+        if (!this.props.isAuth) return <Redirect to={'/Login'}/>
         return this.props.isFetching ? <Preloader/> : <Users totalUsersCount={this.props.totalUsersCount}
                                                              pageSize={this.props.pageSize}
                                                              currentPage={this.props.currentPage}
@@ -63,15 +67,15 @@ class UsersContainer extends React.Component<UserPropsType> {
     }
 }
 
-const mapStateToProps = (state: RootReduxState): MapStateToPropsType => {
+const mapStateToProps = (state: RootReduxState) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProcess: state.usersPage.followingInProcess,
-        isAuth: state.auth.isAuth
+        users: getSelectorUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProcess: getFollowingInProcess(state),
+        isAuth: getIsAuth(state)
     }
 }
 
