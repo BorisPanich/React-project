@@ -13,7 +13,7 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {Redirect} from 'react-router-dom';
 import {
-    getSelectorUsers, getPageSize, getTotalUsersCount,
+    getUsersSelector, getPageSize, getTotalUsersCount,
     getCurrentPage, getIsFetching, getFollowingInProcess, getIsAuth
 } from '../../redux/selectors';
 
@@ -69,7 +69,7 @@ class UsersContainer extends React.Component<UserPropsType> {
 
 const mapStateToProps = (state: RootReduxState) => {
     return {
-        users: getSelectorUsers(state),
+        users: getUsersSelector(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
