@@ -4,7 +4,7 @@ import {Dispatch} from "redux";
 import {v1} from "uuid";
 
 const ADD_POST = 'ADD_POST';
-// const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
+const UPDATE_USER_STATUS = 'UPDATE_USER_STATUS';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
@@ -105,6 +105,12 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
                 status: action.status
             }
         }
+        case UPDATE_USER_STATUS: {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         default:
             return state;
     }
@@ -113,6 +119,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 export const addPostAC = (value: {newPostText: string}) => ({type: "ADD_POST", value} as const);
 export const setUsersProfile = (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const);
 export const setStatus = (status: string) => ({type: "SET_STATUS", status} as const);
+export const updateUserStatus = (status: string) => ({type: "UPDATE_USER_STATUS", status} as const);
 
 // Thunk
 
@@ -129,7 +136,7 @@ export const getStatus = (userId: number) => (dispatch: Dispatch<ActionsTypes>) 
 export const updateStatus = (status: string) => (dispatch: Dispatch<ActionsTypes>) => {
     profileAPI.updateStatus(status).then(response => {
         if (response.resultCode === 0) {
-            dispatch(setStatus(response.statusText));
+            dispatch(updateUserStatus(status));
         }
     })
 };

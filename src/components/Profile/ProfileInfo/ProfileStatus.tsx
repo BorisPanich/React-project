@@ -1,57 +1,48 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
+import {RootReduxState} from '../../../redux/redux-store';
 import s from './ProfileInfo.module.css';
 
 type ProfileStatusType = {
     status: string
+    updateStatus: (status: string) => void
 }
 
-class ProfileStatus extends React.Component<ProfileStatusType> {
-    state = {
-        editMode: false,
-        status: this.props.status
+const ProfileStatus = (props: ProfileStatusType) => {
+
+    let [editMode, setEditMode] = useState(false)
+    let [status, setStatus] = useState(props.status)
+
+    // useEffect(() => {
+    //     setStatus(props.status)
+    // }, [props.status])
+
+    const activateEditMode = () => {
+        setEditMode(true)
+    }
+    const deactivateEditMode = () => {
+        setEditMode(false)
+        props.updateStatus(status)
+    }
+    const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setStatus(e.currentTarget.value)
     }
 
-    activateEditMode = () => {
-        this.setState({
-            editMode: true
-        })
-    }
-    deactivateEditMode() {      // => bind(this)
-        this.setState({
-            editMode: false
-        });
-    }
-    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-        this.setState({
-            status: e.currentTarget.value
-        })
-    }
-
-    componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<{}>, snapshot?: any) {
-        if(prevProps.status !== this.props.status) {
-            this.setState({
-                status: this.props.status
-            })
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                {!this.state.editMode
+    return (
+        <div>
+            {editMode
                 ? <div>
-                    <span onDoubleClick={this.activateEditMode}>{this.props.status || "-----"}</span>
+                    <span onDoubleClick={activateEditMode}>{status || "-----"}</span>
                 </div>
                 : <div>
                     <input autoFocus={true}
-                           onBlur={this.deactivateEditMode.bind(this)}
-                           onChange={this.onStatusChange}
-                           value={this.props.status}/>
+                           onBlur={deactivateEditMode}
+                           onChange={onStatusChange}
+                           value={status}/>
                 </div>
-                }
-            </div>
-        )
-    }
+            }
+        </div>
+    )
 }
+
 
 export default ProfileStatus;

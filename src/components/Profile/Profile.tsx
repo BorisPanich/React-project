@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 type ProfilePropsType = {
     profile: ProfileType | null
     status: string
-    // updateStatus: (status: string) => void
+    updateStatus: (status: string) => void
 }
 
 const Profile: React.FC<ProfilePropsType> = (props) => {
@@ -16,7 +16,7 @@ const Profile: React.FC<ProfilePropsType> = (props) => {
         <div>
             <ProfileInfo profile={props.profile}
                          status={props.status}
-                         // updateStatus={props.updateStatus}
+                         updateStatus={props.updateStatus}
             />
             <MyPostContainer />
         </div>
