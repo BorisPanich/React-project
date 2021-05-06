@@ -8,9 +8,6 @@ import {maxLength, minLength, required} from "../../utils/validations";
 import {DlgReducerInitialStateType} from "../../redux/dialogsReducer";
 import {Redirect} from "react-router-dom";
 
-type FormDataType = {
-    newMText: string
-}
 type DialogsPropsType = {
     addMessageText: (newMText: string) => void
     isAuth: boolean
@@ -18,14 +15,15 @@ type DialogsPropsType = {
 }
 
 const Dialogs = (props: DialogsPropsType) => {
-    let localState = props.dialogsPage
+    // let localState = props.dialogsPage
 
-    let dialogsElement = localState.dialogs.map((d) => <DialogsItem id={d.id} name={d.name}/>)
-    let messagesElement = localState.messages.map((m) => <Message message={m.message}/>)
+    let dialogsElement = props.dialogsPage.dialogs.map(d => <DialogsItem id={d.id} name={d.name} key={d.id}/>)
+    let messagesElement = props.dialogsPage.messages.map(m => <Message message={m.message} key={m.id}/>)
     // let newMessageBody = localState.newMessageText
 
     const addNewMessage = (value: FormDataType) => {
-        props.addMessageText(value.newMText)
+        debugger
+        props.addMessageText(value.newMessageText)
     }
 
     // if (!props.isAuth) return <Redirect to={"/login"} /> ;
@@ -45,6 +43,10 @@ const Dialogs = (props: DialogsPropsType) => {
     )
 }
 
+type FormDataType = {
+    newMessageText: string
+}
+
 const maxLength20 = maxLength(20);
 const minLength2 = minLength(2, 20);
 
@@ -57,7 +59,7 @@ const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                        placeholder="send Message here"
                        name="newMessageText"/>
                 <div>
-                    <button>add message</button>
+                    <button type={'submit'}>add message</button>
                 </div>
             </div>
         </form>
