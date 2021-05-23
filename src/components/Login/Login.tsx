@@ -18,9 +18,13 @@ type FormDataType = {
 const maxLength30 = maxLength(30);
 const minLength2 = minLength(2, 30);
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
+            {/*{createField("Login", "login", [required, minLength2, maxLength30], FormElementInput)}*/}
+            {/*{createField("Password", "password", [required, minLength2, maxLength30], FormElementInput,*/}
+            {/*    {type: 'password'})}*/}
+            {/*{createField(null, "rememberMe", [], FormElementInput, {type: 'checkbox'}, 'remember me')}*/}
             <div>
                 <Field placeholder="Login"
                        name="login"
@@ -42,8 +46,8 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                        component={FormElementInput}
                 /> remember me
             </div>
-            {props.error && <div className={styles.formErrorLogin}>
-                {props.error}
+            {error && <div className={styles.formErrorLogin}>
+                {error}
             </div>}
             <div>
                 <button type={"submit"}>log in</button>
@@ -58,7 +62,6 @@ type LoginPropsType = {
     login: (email: string | null, password: string | null, rememberMe: boolean, captcha: string | null) => void
     logout: () => void
     isAuth: boolean
-    // userId: number       //!!!!!!!!!!!!!!!!!!!!!
 }
 
 const Login = (props: LoginPropsType) => {
@@ -67,7 +70,6 @@ const Login = (props: LoginPropsType) => {
     }
     if (props.isAuth) {
         return <Redirect to={'/profile'}/>
-        // return <Redirect to={'/profile/' + userId}/>         //!!!!!!!!!!!!!!!!!!!!!!!!!
     }
     return <div>
         <h1>Login</h1>

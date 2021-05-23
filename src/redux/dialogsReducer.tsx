@@ -1,7 +1,6 @@
 import {ActionsTypes, DialogType, MessageType} from "./redux-store";
 
 const ADD_MESSAGE_TEXT = 'ADD_MESSAGE_TEXT';
-// const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
 let initialState = {
     dialogs: [
@@ -32,11 +31,6 @@ const dialogsReducer = (state: DlgReducerInitialStateType = initialState, action
                 // newMessageText: '',
                 messages: [...state.messages, {id: 3, message: newMassage}]
             };
-        // case UPDATE_NEW_MESSAGE_TEXT:
-        //     return {
-        //         ...state,
-        //         newMessageText: action.newMText
-        //     }
         default:
             return state
     }
@@ -44,7 +38,5 @@ const dialogsReducer = (state: DlgReducerInitialStateType = initialState, action
 
 export const addMessageTextAC = (newMessageText: string) =>
     ({type: ADD_MESSAGE_TEXT, newMessageText} as const);
-// export const updateNewMessageText = (newMText: string) =>
-//     ({type: "UPDATE-NEW-MESSAGE-TEXT", newMText: newMText} as const)
 
 export default dialogsReducer;

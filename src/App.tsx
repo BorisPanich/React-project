@@ -15,10 +15,10 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from './components/Login/Login';
-import {compose, Store } from 'redux';
+import {compose, Store} from 'redux';
 import {Preloader} from "./components/common/Preloader/Preloader";
-import { connect, ConnectedProps } from 'react-redux';
-import { initializedAppTC } from './redux/appReducer';
+import {connect, ConnectedProps} from 'react-redux';
+import {initializedAppTC} from './redux/appReducer';
 
 type MapStateToPropsType = {
     initializedSuccess: boolean
@@ -31,8 +31,9 @@ export type AppType = {
 }
 
 const App: React.FC<AppType & MapStateToPropsType & MapDispatchToPropsType> = (props) => {
-    useEffect( () => {
-        props.initializedAppTC()}, [])
+    useEffect(() => {
+        props.initializedAppTC()
+    }, [])
 
     if (!props.initializedSuccess) {
         return <Preloader/>
@@ -44,9 +45,9 @@ const App: React.FC<AppType & MapStateToPropsType & MapDispatchToPropsType> = (p
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/profile/:userId?' render={() => <ProfileContainer />}/>
+                    <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                     <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-                    <Route path='/users' render={() => <UsersContainer />}/>
+                    <Route path='/users' render={() => <UsersContainer/>}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/news' render={() => <News/>}/>
                     <Route path='/settings' render={() => <Settings/>}/>

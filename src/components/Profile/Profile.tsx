@@ -10,13 +10,13 @@ type ProfilePropsType = {
     updateUserStatus: (status: string) => void
 }
 
-const Profile: React.FC<ProfilePropsType> = (props) => {
+const Profile: React.FC<ProfilePropsType> = ({profile, status, updateUserStatus}) => {
 
     return (
         <div>
-            <ProfileInfo profile={props.profile}
-                         status={props.status}
-                         updateUserStatus={props.updateUserStatus}
+            <ProfileInfo profile={profile}
+                         status={status}
+                         updateUserStatus={updateUserStatus}
             />
             <MyPostContainer />
         </div>

@@ -28,15 +28,11 @@ export let initializedApp = () => ({type: INITIALIZED_APP} as const)
 // Thunk
 
 export const initializedAppTC = () => (dispatch: Dispatch<any>) => {
-    // dispatch(getAuthUserDataTh()).then(() => {
-    //     dispatch(initializedApp())
-    // })
     let promise = dispatch(getAuthUserDataTh())
     Promise.all([promise])
         .then(() => {
             dispatch(initializedApp())
         })
-
 }
 
 export default appReducer;
