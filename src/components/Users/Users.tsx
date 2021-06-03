@@ -32,10 +32,12 @@ const Users: React.FC<PropsType> = ({
                                         isAuth
                                     }) => {
     return <div>
-    <Paginator totalUsersCount={totalUsersCount}
+    <Paginator totalItemsCount={totalUsersCount}
                currentPage={currentPage}
                pageSize={pageSize}
-               onPageChanged={onPageChanged}/>
+               onPageChanged={onPageChanged}
+               portionSize={10}
+    />
     <div>
         {users.map(u => <User key={u.id} user={u} follow={follow} unfollow={unfollow}
                               followingInProcess={followingInProcess} />)}
