@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {lazy, Suspense, useEffect} from 'react';
 import './App.css';
 import Dialogs from './components/Dialogs/Dialogs';
 import Header from "./components/Header/Header";
@@ -10,15 +10,18 @@ import {Settings} from "./components/Settings/Settings";
 import {Music} from './components/Music/Music';
 import {News} from "./components/News/News";
 import {Sidebar} from './components/Sidebar/Sidebar';
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+// import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from "./components/Profile/ProfileContainer";
+// import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from './components/Login/Login';
 import {compose, Store} from 'redux';
 import {Preloader} from "./components/common/Preloader/Preloader";
 import {connect, ConnectedProps} from 'react-redux';
 import {initializedAppTC} from './redux/appReducer';
+
+const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'));
 
 type MapStateToPropsType = {
     initializedSuccess: boolean
@@ -45,8 +48,12 @@ const App: React.FC<AppType & MapStateToPropsType & MapDispatchToPropsType> = (p
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-                    <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <section>
+                            <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                            <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+                        </section>
+                    </Suspense>
                     <Route path='/users' render={() => <UsersContainer/>}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/news' render={() => <News/>}/>
