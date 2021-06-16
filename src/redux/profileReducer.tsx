@@ -7,6 +7,7 @@ const ADD_POST = 'ADD_POST';
 const UPDATE_USER_STATUS = 'UPDATE_USER_STATUS';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 
 
 export type PostsType = {
@@ -22,12 +23,15 @@ export type ProfilePageType = {
 }
 export type ProfileType = {
     aboutMe: string | null
-    contacts: userProfileContactsType
+    contacts: UserProfileContactsType
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
     fullName: string | null
     userId: number | null
-    photos: PhotosType
+    photos: {
+        small: string | null,
+        large: string | null
+    }
 }
 
 export type ContactsType = {
@@ -40,7 +44,7 @@ export type ContactsType = {
     youtube: string | null
     mainLink: string | null
 }
-type userProfileContactsType = {
+type UserProfileContactsType = {
     facebook: string | null
     website: string | null
     vk: string | null
@@ -50,7 +54,10 @@ type userProfileContactsType = {
     "github": string | null
     mainLink: string | null
 }
-export type PhotosType = { small: string, large: string }
+export type PhotosType = {
+    small: string | null,
+    large: string | null
+}
 
 
 let initialState: ProfilePageType = {
@@ -76,11 +83,11 @@ let initialState: ProfilePageType = {
         fullName: null,
         userId: null,
         photos: {
-            small: '',
-            large: ''
+            small: '' as string || null,
+            large: '' as string | null
         }
     },
-    status: ""
+    status: ''
 }
 
 export type PrfReducerInitialStateType = typeof initialState;
@@ -111,6 +118,12 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
                 status: action.status
             }
         }
+        case SAVE_PHOTO_SUCCESS: {
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
+            }
+        }
         default:
             return state;
     }
@@ -120,6 +133,7 @@ export const addPostAC = (value: { newPostText: string }) => ({type: "ADD_POST",
 export const setUsersProfile = (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const);
 export const setStatus = (status: string) => ({type: "SET_STATUS", status} as const);
 export const updateUserStatus = (status: string) => ({type: "UPDATE_USER_STATUS", status} as const);
+export const savePhotoSuccess = (photos: {large: string | null, small: string | null}) => ({type: 'SAVE_PHOTO_SUCCESS', photos} as const);
 
 // Thunk
 
@@ -134,7 +148,14 @@ export const getStatus = (userId: number) => async (dispatch: Dispatch<ActionsTy
 export const updateStatus = (status: string) => async (dispatch: Dispatch<ActionsTypes>) => {
     let response = await profileAPI.updateStatus(status)
     if (response.resultCode === 0) {
-        dispatch(updateUserStatus(status));
+        dispatch(setStatus(status));
+        // dispatch(updateUserStatus(status));
+    }
+};
+export const savePhoto = (file: File) => async (dispatch: Dispatch<ActionsTypes>) => {
+    let response = await profileAPI.savePhoto(file)
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data.photos))
     }
 };
 

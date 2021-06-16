@@ -1,27 +1,37 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './ProfileInfo.module.css';
 import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileType} from "../../../redux/profileReducer";
 import ProfileStatus from "./ProfileStatus";
+import userPhoto from '../../../assets/images/photo.png';
 
 type ProfileInfoType = {
     profile: ProfileType | null
     status: string
     updateUserStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: (file: File) => void
 }
 
-const ProfileInfo = (props: ProfileInfoType) => {
-    if(!props.profile) {
-        return <Preloader />
+const ProfileInfo: React.FC<ProfileInfoType> = ({profile, status, updateUserStatus, isOwner, savePhoto}) => {
+    if (!profile) {
+        return <Preloader/>
+    }
+
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            savePhoto(e.target.files[0])
+        }
     }
 
     return (
         <div>
-            <div className={s.photoFullName}>{props.profile.fullName}</div>
+            <div className={s.photoFullName}>{profile.fullName}</div>
             <div className={s.avaDiscr}>
-                <img src={props.profile.photos.small}/>
-                <ProfileStatus status={props.status}
-                               updateUserStatus={props.updateUserStatus}
+                <img src={profile.photos.small || userPhoto}/>
+                {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
+                <ProfileStatus status={status}
+                               updateUserStatus={updateUserStatus}
                 />
             </div>
         </div>

@@ -2,6 +2,10 @@
     font-weight: bold;
 }
 
+.pageNotSelected {
+    border: 1px solid;
+}
+
 .paginator {
     margin: 10px;
 }
