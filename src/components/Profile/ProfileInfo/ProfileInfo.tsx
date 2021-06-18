@@ -18,8 +18,8 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({profile, status, updateUserStat
         return <Preloader/>
     }
 
-    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
+    const onMainPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files !== null && e.target.files.length) {
             savePhoto(e.target.files[0])
         }
     }
@@ -28,7 +28,7 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({profile, status, updateUserStat
         <div>
             <div className={s.photoFullName}>{profile.fullName}</div>
             <div className={s.avaDiscr}>
-                <img src={profile.photos.small || userPhoto}/>
+                <img alt="avatar" src={profile.photos.small || userPhoto}/>
                 {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
                 <ProfileStatus status={status}
                                updateUserStatus={updateUserStatus}

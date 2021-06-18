@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import profileReducer, {addPostAC, savePhotoSuccess, setStatus, setUsersProfile, updateUserStatus} from "./profileReducer";
+import {addPostAC, profileReducer, savePhotoSuccess, setStatus, setUsersProfile, updateUserStatus} from "./profileReducer";
 import dialogsReducer, {addMessageTextAC} from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
 import usersReducer, {

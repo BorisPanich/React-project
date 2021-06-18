@@ -2,7 +2,7 @@ import React, {ComponentType} from 'react';
 import Profile from './Profile';
 import {connect} from "react-redux";
 import {RootReduxState} from "../../redux/redux-store";
-import {getStatus, getUsersProfile, updateUserStatus, ProfileType} from "../../redux/profileReducer";
+import {getStatus, getUsersProfile, updateUserStatus, ProfileType, savePhoto} from "../../redux/profileReducer";
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -17,7 +17,7 @@ type PathPropsType = {
 type MapStatePropsType = {
     profile: ProfileType
     status: string
-    myUserId: any           //!!!!!!!!!!!!!!!!
+    myUserId: number | null
     isAuth: boolean
 }
 type MapDispatchToPropsType = {
@@ -32,29 +32,15 @@ type PropsType = RouteComponentProps<PathPropsType> & MapStatePropsType & MapDis
 class ProfileContainer extends React.Component<PropsType> {
 
     refreshProfile() {
-        let userId = +this.props.match.params.userId; // Number(this.props.match.params.userId)
+        let id = +this.props.match.params.userId; // Number(this.props.match.params.userId)
+        let userId = id ? id : this.props.myUserId
 
         if (!userId) {
-            // userId = this.props.currentUserId!
-            if (!userId) {
                 this.props.history.push('/login')
             }
-            this.props.getUsersProfile(userId);
-            this.props.getStatus(userId);
+            this.props.getUsersProfile(userId!);
+            this.props.getStatus(userId!);
         }
-
-        // let myUserId = this.props.myUserId
-        // if (!userId && !myUserId) {
-        //     this.props.history.push('/login')
-        // }
-        // if (!userId && myUserId) {
-        //     userId = myUserId.toString()
-        // }
-        // if (userId) {
-        //     this.props.getUsersProfile(userId)
-        //     this.props.getStatus(userId)
-        // }
-    }
 
     componentDidMount() {
         this.refreshProfile()
