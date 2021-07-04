@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from "axios";
+import { ProfileType } from '../../redux/profileReducer';
 
 const instance = axios.create({
     withCredentials: true,
@@ -79,6 +80,10 @@ export const profileAPI = {
             }
         }).then(res => res.data)
     },
+    saveProfile(profile: ProfileType) {
+        return instance.put(`profile`, profile)
+            // .then(res => res.data)
+    }
 }
 
 

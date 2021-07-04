@@ -2,6 +2,7 @@ import {ActionsTypes, PostType} from "./redux-store";
 import {profileAPI} from "../components/api/API";
 import {Dispatch} from "redux";
 import {v1} from "uuid";
+import { stopSubmit } from "redux-form";
 
 const ADD_POST = 'ADD_POST';
 const UPDATE_USER_STATUS = 'UPDATE_USER_STATUS';
@@ -22,7 +23,7 @@ export type ProfilePageType = {
 }
 export type ProfileType = {
     aboutMe: string | null
-    contacts: UserProfileContactsType
+    contacts: ContactsType
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
     fullName: string | null
@@ -43,16 +44,16 @@ export type ContactsType = {
     youtube: string | null
     mainLink: string | null
 }
-type UserProfileContactsType = {
-    facebook: string | null
-    website: string | null
-    vk: string | null
-    twitter: string | null
-    instagram: string | null
-    youtube: string | null
-    "github": string | null
-    mainLink: string | null
-}
+// type UserProfileContactsType = {
+//     facebook: string | null
+//     website: string | null
+//     vk: string | null
+//     twitter: string | null
+//     instagram: string | null
+//     youtube: string | null
+//     "github": string | null
+//     mainLink: string | null
+// }
 export type PhotosType = {
     small: string | null,
     large: string | null
@@ -111,12 +112,6 @@ export const profileReducer = (state: PrfReducerInitialStateType = initialState,
                 status: action.status
             }
         }
-        case UPDATE_USER_STATUS: {
-            return {
-                ...state,
-                status: action.status
-            }
-        }
         case SAVE_PHOTO_SUCCESS: {
             return {
                 ...state,
@@ -131,7 +126,7 @@ export const profileReducer = (state: PrfReducerInitialStateType = initialState,
 export const addPostAC = (value: { newPostText: string }) => ({type: "ADD_POST", value} as const);
 export const setUsersProfile = (profile: ProfileType) => ({type: "SET_USER_PROFILE", profile} as const);
 export const setStatus = (status: string) => ({type: "SET_STATUS", status} as const);
-export const updateUserStatus = (status: string) => ({type: "UPDATE_USER_STATUS", status} as const);
+// export const updateUserStatus = (status: string) => ({type: "UPDATE_USER_STATUS", status} as const);
 export const savePhotoSuccess = (photos: PhotosType) => ({type: 'SAVE_PHOTO_SUCCESS', photos} as const);
 
 // Thunk
@@ -155,6 +150,16 @@ export const savePhoto = (file: File) => async (dispatch: Dispatch<ActionsTypes>
     const response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos))
+    }
+};
+export const saveProfile = (profile: ProfileType) => async (dispatch: Dispatch<ActionsTypes>, getState: any) => {  //!!!!!!!
+    const userId = JSON.stringify(getState().auth.data.userId)
+    const response = await profileAPI.saveProfile(profile)
+    if (response.data.resultCode === 0) {
+        dispatch(getUsersProfile(+userId))
+    } else {
+        dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0]}))
+        return Promise.reject(response.data.messages[0])
     }
 };
 

@@ -16,22 +16,22 @@ export const FormElementCreator = (Element: string) =>
 export const FormElementInput = FormElementCreator('input')
 export const FormElementTextarea = FormElementCreator('textarea')
 
-// type CreateFieldType = {
-//     placeholder: string
-//     name: string
-//     component: any
-//     validate: any
-//     props?: {}
-//     text?: string
-// }
-//
-// export const createField = (props: CreateFieldType) => {
-//     return <div>
-//         <Field placeholder={placeholder}
-//                name={name}
-//                validate={validate}
-//                component={component}
-//                {...props}
-//         /> {text}
-//     </div>
-// }
+type CreateFieldType = {
+    placeholder: string
+    name: string
+    component: any
+    validate: any
+    props?: {}
+    text?: string
+}
+
+export const createField = (props: CreateFieldType) => {
+    return <div>
+        <Field placeholder={placeholder}
+               name={name}
+               validate={validate}
+               component={component}
+               {...props}
+        /> {text}
+    </div>
+}

@@ -9,7 +9,7 @@ import {FormElementTextarea} from "../../common/FormControls/FormControls";
 
 const MyPost = (props: MyPostPropsType) => {
     let localState = props.profilePage
-    let postsElement = localState.posts.map(p => <Post message={p.message} likes={p.likes}/>)
+    let postsElement = localState.posts.map(p => <Post key={p.id} message={p.message} likes={p.likes}/>)
 
     const addNewPost = (data: FormDataType) => {
         props.addPost( {newPostText: data.newPostText})

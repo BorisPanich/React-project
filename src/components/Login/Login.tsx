@@ -1,7 +1,7 @@
 import React from 'react';
 import {InjectedFormProps, reduxForm, Field} from "redux-form";
 import {maxLength, minLength, required} from "../../utils/validations";
-import {FormElementInput} from "../common/FormControls/FormControls";
+import {createField, FormElementInput} from "../common/FormControls/FormControls";
 import {connect} from "react-redux";
 import {login, logout} from "../../redux/authReducer";
 import {Redirect} from "react-router-dom";
@@ -21,10 +21,12 @@ const minLength2 = minLength(2, 30);
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return (
         <form onSubmit={handleSubmit}>
-            {/*{createField("Login", "login", [required, minLength2, maxLength30], FormElementInput)}*/}
-            {/*{createField("Password", "password", [required, minLength2, maxLength30], FormElementInput,*/}
-            {/*    {type: 'password'})}*/}
-            {/*{createField(null, "rememberMe", [], FormElementInput, {type: 'checkbox'}, 'remember me')}*/}
+            {createField("Email", "email", [required, minLength2, maxLength30], FormElementInput)}
+            {createField("Password", "password", [required, minLength2, maxLength30], FormElementInput,
+                {type: 'password'})}
+            {createField(null, "rememberMe", [], FormElementInput, {type: 'checkbox'}, 'remember me')}
+
+            {error && <div className={styles.formErrorLogin}>{error}</div>}
             <div>
                 <Field placeholder="Login"
                        name="login"
