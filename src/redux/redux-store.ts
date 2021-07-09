@@ -1,5 +1,5 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
-import {addPostAC, profileReducer, savePhotoSuccess, setStatus, setUsersProfile, updateUserStatus} from "./profileReducer";
+import {Action, applyMiddleware, combineReducers, createStore} from "redux";
+import {addPostAC, deletePost, profileReducer, savePhotoSuccess, setStatus, setUsersProfile} from "./profileReducer";
 import dialogsReducer, {addMessageTextAC} from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
 import usersReducer, {
@@ -10,13 +10,13 @@ import usersReducer, {
     toggleIsFollowingProcess, followSuccess, unfollowSuccess
 } from "./usersReducer";
 import authReducer from "./authReducer";
-import thunkMiddleware from "redux-thunk";
+import thunkMiddleware, { ThunkAction } from "redux-thunk";
 import { reducer as formReducer } from 'redux-form';
 import appReducer from "./appReducer";
 
 
 export type PostType = {
-    id?: string
+    id?: number
     message: string
     likes: number
 }
@@ -62,7 +62,8 @@ export type ActionsTypes = (
     ReturnType<typeof setUsersProfile> |
     ReturnType<typeof toggleIsFollowingProcess> |
     ReturnType<typeof setStatus> |
-    ReturnType<typeof updateUserStatus> |
+    ReturnType<typeof deletePost> |
+    // ReturnType<typeof updateUserStatus> |
     ReturnType<typeof savePhotoSuccess>
     );
 
@@ -77,6 +78,11 @@ let reducers = combineReducers({
 })
 
 export type RootReduxState = ReturnType<typeof reducers>
+// type RootReducerType = typeof reducers; // (globalstate: AppStateType) => AppStateType
+// export type AppStateType = ReturnType<RootReducerType>
+
+export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
+export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, RootReduxState, unknown, A>
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 

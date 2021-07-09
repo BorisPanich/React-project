@@ -5,21 +5,21 @@ import {ProfilePageType, ProfileType} from "../../redux/profileReducer";
 import { Redirect } from 'react-router-dom';
 
 type ProfilePropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
-    updateUserStatus: (status: string) => void
+    updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
     saveProfile: (profile: ProfileType) => Promise<any>
 }
 
-const Profile: React.FC<ProfilePropsType> = ({profile, status, updateUserStatus, isOwner, savePhoto, saveProfile}) => {
+const Profile: React.FC<ProfilePropsType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
 
     return (
         <div>
             <ProfileInfo profile={profile}
                          status={status}
-                         updateUserStatus={updateUserStatus}
+                         updateStatus={updateStatus}
                          isOwner={isOwner}
                          savePhoto={savePhoto}
                          saveProfile={saveProfile}

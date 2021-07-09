@@ -15,7 +15,8 @@ export type DataUserType = {
 
 let initialState = {
     dataUser: {} as DataUserType,
-    isAuth: false
+    isAuth: false,
+    captchaUrl: null as string | null
 }
 
 export type InitialStateType = typeof initialState;

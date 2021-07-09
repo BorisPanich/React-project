@@ -82,7 +82,6 @@ export const profileAPI = {
     },
     saveProfile(profile: ProfileType) {
         return instance.put(`profile`, profile)
-            // .then(res => res.data)
     }
 }
 

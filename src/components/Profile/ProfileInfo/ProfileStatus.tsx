@@ -4,7 +4,7 @@ import s from './ProfileInfo.module.css';
 
 type ProfileStatusType = {
     status: string
-    updateUserStatus: (status: string) => void
+    updateStatus: (status: string) => void
 }
 
 const ProfileStatus = (props: ProfileStatusType) => {
@@ -21,7 +21,7 @@ const ProfileStatus = (props: ProfileStatusType) => {
     }
     const deactivateEditMode = () => {
         setEditMode(false)
-        props.updateUserStatus(status)
+        props.updateStatus(status)
     }
     const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)

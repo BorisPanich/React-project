@@ -4,21 +4,21 @@ import {Preloader} from "../../common/Preloader/Preloader";
 import {ContactsType, ProfileType} from "../../../redux/profileReducer";
 import ProfileStatus from "./ProfileStatus";
 import userPhoto from '../../../assets/images/photo.png';
-import ProfileDataForm from './ProfileDataForm';
+import ProfileDataFormReduxForm from './ProfileDataForm';
 
 type ProfileInfoType = {
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
-    updateUserStatus: (status: string) => void
+    updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
-    saveProfile: (profile: ProfileType) => Promise<any>
+    saveProfile: (formData: ProfileType) => Promise<any>
 }
 
 const ProfileInfo: React.FC<ProfileInfoType> = ({
                                                     profile,
                                                     status,
-                                                    updateUserStatus,
+                                                    updateStatus,
                                                     isOwner,
                                                     savePhoto,
                                                     saveProfile
@@ -32,8 +32,8 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({
         }
     }
 
-    const onSubmit = (profile: ProfileType) => {
-        const promise = saveProfile(profile)
+    const onSubmit = (formData: ProfileType) => {
+        const promise = saveProfile(formData)
         promise.then(
             () => {
                 setEditMode(false)
@@ -48,7 +48,7 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({
                 {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
 
                 {editMode
-                    ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
+                    ? <ProfileDataFormReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
                     : <ProfileData
                         goToEditMode={() => {
                             setEditMode(true)
@@ -57,7 +57,7 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({
                         isOwner={isOwner}/>}
 
                 <ProfileStatus status={status}
-                               updateUserStatus={updateUserStatus}
+                               updateStatus={updateStatus}
                 />
             </div>
         </div>
