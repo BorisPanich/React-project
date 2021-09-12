@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 190px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  margin: 0px;
+  line-height: 1.5;
+  color: #3f414d;
+}
+.text {
+  margin: 0;
+}

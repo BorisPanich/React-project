@@ -1,16 +1,39 @@
-
 .header {
-    grid-area: h;
-    background-color: dodgerblue;
+  min-height: 73px;
+  line-height: 73px;
+  width: 1200px;
+  margin: 0 auto;
+  background: #ffffff;
+  transition: all 0.45s ease 0s;
+  box-shadow: 0px 0px 20px 0px rgba(44, 101, 144, 0.1);
+  /*grid-area: header;*/
+  display: flex;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.header img {
-    width: 90px;
+.header__logo {
+  height: 45px;
 }
 
-.loginBlock {
-    float: right;
+.title {
+  color: #3f414d;;
+  margin-left: 10px;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 28px;
+  font-family: 'Poppins', sans-serif;
+  line-height: 45px;
 }
-.loginBlock a {
-    color: white;
+
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding-left: 15px;
+}
+
+.burgerContainer {
+
 }

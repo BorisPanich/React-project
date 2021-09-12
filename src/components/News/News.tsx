@@ -1,10 +1,12 @@
 import React from 'react';
+import news from './News.module.css';
 
-export const News = () => {
-    return (
-        <div>
-            News World
-        </div>
-    )
+const News = () => {
+  return (
+    <div>
+      <p>News</p>
+    </div>
+  )
 }
 
+export default News;

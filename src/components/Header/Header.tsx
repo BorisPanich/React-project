@@ -1,25 +1,23 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import s from './Header.module.css';
+import header from './Header.module.css';
+import Search from "./SearchInput/Search";
+import HeaderNavBarContainer from './HeaderNavBar/HeaderNavBarContainer';
 
-type HeaderPropsType = {
-    isAuth: boolean | null
-    login: string | null | undefined
-    logout: () => void
-}
 
-const Header = (props: HeaderPropsType) => {
-    return (
-        <header className={s.header}>
-            <img
-                src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_Q8EiXvfHSAAHT5PjhNkHC3nKICKfTNWDCw&usqp=CAU'/>
-                <div className={s.loginBlock}>
-                    { props.isAuth
-                        ? <div>{props.login} <button onClick={props.logout}>log out</button> </div>
-                        : <NavLink to={'/login'}>log in</NavLink>}
-                </div>
-        </header>
-    )
+const Header = (props: any) => {
+  return (
+    <header className={header.header}>
+      <div>
+        <a href='#' className={header.link}>
+          <img src='https://iqonic.design/themes/socialv/html/images/logo.png' alt='logo' className={header.header__logo} />
+          <h1 className={header.title}>SocialReact</h1>
+
+        </a>
+      </div>
+      <Search />
+      <HeaderNavBarContainer {...props}/>
+    </header>
+  )
 }
 
 export default Header;

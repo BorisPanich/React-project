@@ -1,0 +1,64 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.add__btn {
+  border: none;
+  outline: none;
+  background-color: #50b5ff;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+/*.textarea {*/
+/*  font-family: Montserrat, sans-serif;*/
+/*  border: none;*/
+/*  outline: none;*/
+/*  height: 85px;*/
+/*  line-height: 25px;*/
+/*  background: transparent;*/
+/*  font-size: 14px;*/
+/*  color: #a09e9e;*/
+/*  resize: none;*/
+/*  outline: none;*/
+/*  border-radius: 5px;*/
+/*  overflow-y: auto;*/
+/*  width: 70%;*/
+/*}*/
+
+.title {
+  padding: 0 20px;
+  width: 100%;
+  min-height: 60px;
+  border-bottom: 1px solid #f1f1f1;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  margin: 0px;
+  line-height: 1.5;
+  color: #3f414d;
+  display: flex;
+  align-items: center;
+}
+
+.post {
+  background: #ffffff;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  box-shadow: 0px 0px 20px 0px rgba(44, 101, 144, 0.1);
+}
+
+.ava {
+  padding: 5px 0;
+  background-color: transparent;
+  border-radius: 50%;
+  margin-right: 25px;
+  width: 80px;
+  margin-left: 22px;
+}

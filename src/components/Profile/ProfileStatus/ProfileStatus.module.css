@@ -1,0 +1,11 @@
+.box {
+	cursor: pointer;
+}
+
+
+.status {
+	min-width: 100px;
+	height: 30px;
+	margin: 0;
+	cursor: pointer;
+}

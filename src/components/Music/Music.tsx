@@ -1,9 +1,12 @@
 import React from 'react';
+import music from './Music.module.css';
 
-export const Music = () => {
-    return (
-        <div>
-            Music World
-        </div>
-    )
+const Music = () => {
+  return (
+    <div>
+      <p>Music</p>
+    </div>
+  )
 }
+
+export default Music;

@@ -1,73 +1,67 @@
-import React, {lazy, Suspense, useEffect} from 'react';
-import './App.css';
-import Dialogs from './components/Dialogs/Dialogs';
-import Header from "./components/Header/Header";
-import Navbar from "./components/Navbar/Navbar";
-import Profile from "./components/Profile/Profile";
-import {BrowserRouter, Route} from 'react-router-dom';
-import {ActionsTypes, MessageType, PostType, ProfilePageType, RootStateType, RootReduxState} from "./redux/redux-store";
-import {Settings} from "./components/Settings/Settings";
-import {Music} from './components/Music/Music';
-import {News} from "./components/News/News";
-import {Sidebar} from './components/Sidebar/Sidebar';
+import React from 'react';
+import app from './App.module.css';
+import Header from './components/Header/Header';
+import NavBar from './components/NavBar/NavBar';
+import {HashRouter, Route, withRouter} from 'react-router-dom';
+import News from './components/News/News';
+import Music from './components/Music/Music';
+import Settings from './components/Settings/Settings';
 import UsersContainer from './components/Users/UsersContainer';
-import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from './components/Login/Login';
-import {compose, Store} from 'redux';
-import {Preloader} from "./components/common/Preloader/Preloader";
-import {connect, ConnectedProps} from 'react-redux';
-import {initializedAppTC} from './redux/appReducer';
+import {connect, Provider} from 'react-redux';
+import {compose} from 'redux';
+import {initializeAppTC} from './redux/app-reducer';
+import {AppStateType, store} from './redux/redux-store';
+import Loader from './components/common/Loader/Loader';
+import {withSuspense} from './hoc/withSuspence';
+import {Login} from './components/Login/Login';
 
-const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'));
-const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'));
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
-type MapStateToPropsType = {
-    initializedSuccess: boolean
-}
-type MapDispatchToPropsType = {
-    initializedAppTC: () => void
-}
-export type AppType = {
-    store: Store
-}
+class App extends React.Component<any, any> {
 
-const App: React.FC<AppType & MapStateToPropsType & MapDispatchToPropsType> = (props) => {
-    useEffect(() => {
-        props.initializedAppTC()
-    }, [])
+	componentDidMount() {
+		this.props.initializeAppTC()
+	}
 
-    if (!props.initializedSuccess) {
-        return <Preloader/>
-    }
-
-    return (
-        <BrowserRouter>
-            <div className='app-wrapper'>
-                <HeaderContainer/>
-                <Navbar/>
-                <div className='app-wrapper-content'>
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <section>
-                            <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-                            <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-                        </section>
-                    </Suspense>
-                    <Route path='/users' render={() => <UsersContainer/>}/>
-                    <Route path='/music' render={() => <Music/>}/>
-                    <Route path='/news' render={() => <News/>}/>
-                    <Route path='/settings' render={() => <Settings/>}/>
-                    <Route path='/sidebar' render={() => <Sidebar/>}/>
-                    <Route path='/login' render={() => <Login/>}/>
-                </div>
-            </div>
-        </BrowserRouter>)
+	render() {
+		if (!this.props.initialized) {
+			return <Loader/>
+		}
+		return (
+			<div className={app.app}>
+				<Header/>
+				<div className={app.container}>
+					<NavBar/>
+					<div className={app.content}>
+						<Route path='/dialogs' render={withSuspense(DialogsContainer)}/>
+						<Route path='/profile/:userID?' render={withSuspense(ProfileContainer)}/>
+						<Route render={() => <UsersContainer/>} path='/users'/>
+						<Route render={() => <News/>} path='/news'/>
+						<Route render={() => <Music/>} path='/music'/>
+						<Route render={() => <Settings/>} path='/settings'/>
+						<Route render={() => <Login/>} path='/login'/>
+					</div>
+				</div>
+			</div>
+		);
+	}
 }
 
-let mapStateToProps = (state: RootReduxState): MapStateToPropsType => ({
-    initializedSuccess: state.app.initializedSuccess
+
+const mapStateToProps = (state: AppStateType) => ({
+	initialized: state.app.initialized
 })
 
-const connector = connect(mapStateToProps, {initializedAppTC})
-export type PropsFromRedux = ConnectedProps<typeof connector>
 
-export default compose<React.ComponentType>(connector)(App);
+const AppContainer = compose(
+	withRouter,
+	connect(mapStateToProps, {initializeAppTC}))(App) as React.FunctionComponent<any>
+
+export const MainApp = () => {
+	return <HashRouter>
+		<Provider store={store}>
+			<AppContainer/>
+		</Provider>
+	</HashRouter>
+}

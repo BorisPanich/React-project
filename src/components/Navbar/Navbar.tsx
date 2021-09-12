@@ -1,33 +1,36 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import s from './Navbar.module.css';
+import navbar from './NavBar.module.css';
+import {NavLink} from "react-router-dom";
+import FriendsContainer from './Friends/FriendsContainer';
 
-const Navbar = () => {
-    return (
-        <nav className={s.nav}>
-            <div className={s.item}>
-                <NavLink to='/profile' activeClassName={s.activeLink} >Profile</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to='/dialogs' activeClassName={s.activeLink} >Messages</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to='/users' activeClassName={s.activeLink} >Users</NavLink>
-            </div>
-            <div className={`${s.item} ${s.active}`}>
-                <NavLink to='/news' activeClassName={s.activeLink}>News</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to='/music' activeClassName={s.activeLink}>Music</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to='/settings' activeClassName={s.activeLink}>Settings</NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to='/sidebar' activeClassName={s.activeLink}>Sidebar</NavLink>
-            </div>
-        </nav>
-    )
+
+const NavBar = () => {
+
+  return (
+    <nav className={navbar.nav}>
+      <ul className={navbar.nav__list}>
+        <li className={navbar.nav__item}>
+          <NavLink to='/profile' className={navbar.nav__link} activeClassName={navbar.active}>Profile</NavLink>
+        </li>
+        <li className={navbar.nav__item}>
+          <NavLink to='/dialogs' className={navbar.nav__link} activeClassName={navbar.active}>Messages</NavLink>
+        </li>
+        <li className={navbar.nav__item}>
+          <NavLink to='/news' className={navbar.nav__link} activeClassName={navbar.active}>News</NavLink>
+        </li>
+        <li className={navbar.nav__item}>
+          <NavLink to='/music' className={navbar.nav__link} activeClassName={navbar.active}>Music</NavLink>
+        </li>
+        <li className={navbar.nav__item}>
+          <NavLink to='/settings' className={navbar.nav__link} activeClassName={navbar.active}>Settings</NavLink>
+        </li>
+        <li className={navbar.nav__item}>
+          <NavLink to='/users' className={navbar.nav__link} activeClassName={navbar.active}>Find friends</NavLink>
+        </li>
+      </ul>
+      <FriendsContainer/>
+    </nav>
+  )
 }
 
-export default Navbar;
+export default NavBar;

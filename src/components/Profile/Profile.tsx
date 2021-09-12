@@ -1,32 +1,26 @@
 import React from 'react';
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostContainer from "./MyPost/MyPostContainer";
-import {ProfilePageType, ProfileType} from "../../redux/profileReducer";
-import { Redirect } from 'react-router-dom';
+import profile from './Profile.module.css';
+import ProfileInfo  from './ProfileInfo/ProfileInfo';
+import MyPostsContainer from './MyPosts/MyPostsContainer';
+import {ProfileType} from '../../types/types';
 
-type ProfilePropsType = {
-    profile: ProfileType | null
-    status: string
-    updateStatus: (status: string) => void
-    isOwner: boolean
-    savePhoto: (file: File) => void
-    saveProfile: (profile: ProfileType) => Promise<any>
+
+export type ProfilePropsType = {
+  profile: ProfileType
+  status: string
+  updateStatus: (status: string) => void
+  isOwner: boolean
+  savePhoto: (photo: File) => void
+  saveProfile: (profile: ProfileType) => Promise<any>
 }
 
-const Profile: React.FC<ProfilePropsType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
-
-    return (
-        <div>
-            <ProfileInfo profile={profile}
-                         status={status}
-                         updateStatus={updateStatus}
-                         isOwner={isOwner}
-                         savePhoto={savePhoto}
-                         saveProfile={saveProfile}
-            />
-            <MyPostContainer />
-        </div>
-    )
+const Profile = (props: ProfilePropsType) => {
+  return (
+    <div className={profile.profile}>
+      <ProfileInfo saveProfile={props.saveProfile} profile={props.profile} updateStatus={props.updateStatus} status={props.status} isOwner={props.isOwner} savePhoto={props.savePhoto}/>
+      <MyPostsContainer  />
+    </div>
+  )
 }
 
 export default Profile;

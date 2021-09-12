@@ -1,48 +1,43 @@
 import React from 'react';
-import styles from './users.module.css';
-import userPhoto from '../../assets/images/photo.png'
-import {UserType} from "../../redux/usersReducer";
-import {NavLink} from 'react-router-dom';
-import Paginator from '../common/Paginator/Paginator';
-import User from './User';
+import us from './Users.module.css';
+import { userType} from '../../redux/users-reducer';
+import {Paginator} from '../common/Paginator/Paginator';
+import {User} from './User';
 
-type PropsType = {
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    onPageChanged: (pageNumber: number) => void
-    users: Array<UserType>
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    followingInProcess: Array<number>
-    toggleIsFollowingProcess: (isFetching: boolean, userId: number) => void
-    isAuth: boolean
+
+type UsersFuncPropsType = {
+	users: Array<userType>
+	pageSize: number
+	totalUsersCount: number
+	currentPage: number
+	follow: (userID: number) => void
+	unFollow: (userID: number) => void
+	onPageChanged: (page: number) => void
+	followingInProgress: Array<number>
+	setToggleFollowingProgress: (following: boolean, userID: number) => void
+	followThunkCreator: (userID: number) => void
+	unFollowThunkCreator: (userID: number) => void
 }
 
-const Users: React.FC<PropsType> = ({
-                                        totalUsersCount,
-                                        currentPage,
-                                        pageSize,
-                                        onPageChanged,
-                                        users,
-                                        follow,
-                                        unfollow,
-                                        followingInProcess,
-                                        toggleIsFollowingProcess,
-                                        isAuth
-                                    }) => {
-    return <div>
-    <Paginator totalItemsCount={totalUsersCount}
-               currentPage={currentPage}
-               pageSize={pageSize}
-               onPageChanged={onPageChanged}
-               portionSize={10}
-    />
-    <div>
-        {users.map(u => <User key={u.id} user={u} follow={follow} unfollow={unfollow}
-                              followingInProcess={followingInProcess} />)}
-    </div>
-    </div>
+const Users = (props: UsersFuncPropsType) => {
+	return (
+		<div className={us.box_wrap}>
+			<div className={us.titleBox}>
+				<h2 className={us.title}>Friend Lists</h2>
+				<img src='https://iqonic.design/themes/socialv/html/images/page-img/profile-bg7.jpg' className={us.box_bg}/>
+			</div>
+			<div className={us.box}>
+				{props.users.map(user => {
+					return <User followingInProgress={props.followingInProgress} followThunkCreator={props.followThunkCreator}
+											 unFollowThunkCreator={props.unFollowThunkCreator} user={user} key={user.id}/>
+				})
+				}
+				<Paginator pageSize={props.pageSize} currentPage={props.currentPage} onPageChanged={props.onPageChanged}
+									 totalItemsCount={props.totalUsersCount}/>
+			</div>
+			{/*<button className={us.show_more_btn}>Show more</button>*/}
+		</div>
+	)
 }
 
 export default Users;

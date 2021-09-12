@@ -1,0 +1,57 @@
+.boxTextarea {
+  width: 70%;
+}
+
+.input {
+  height: 43px;
+  vertical-align: middle;
+  display: inline-block;
+  max-width: 100%;
+  width: 100%;
+  min-width: 490px;
+  padding: 0px 16px;
+  color: #666;
+  border: 1px solid #eceff5;
+  border-radius: 7px;
+  transition: 0.2s ease-in-out;
+  transition-property: color, background-color, border;
+  background-color: #f1f3f4;
+  margin-bottom: 15px;
+}
+
+
+.textarea {
+  font-family: Montserrat, sans-serif;
+  border: none;
+  outline: none;
+  height: 85px;
+  line-height: 25px;
+  background: transparent;
+  font-size: 14px;
+  color: #a09e9e;
+  resize: none;
+  outline: none;
+  border-radius: 5px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.formControl.error textarea,
+.formControl.error input {
+  border-radius: 5px;
+  color: red;
+}
+
+
+.errorMessage{
+  margin: 0;
+  color: red;
+}
+
+
+.formErrorSummary {
+  color: red;
+  border-radius: 5px;
+}
+
+

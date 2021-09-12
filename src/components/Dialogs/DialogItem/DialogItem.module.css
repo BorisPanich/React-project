@@ -1,0 +1,45 @@
+.dialogs__wrapper {
+  display: flex;
+}
+
+.dialog__list {
+  margin: 0;
+  padding: 10px;
+  list-style: none;
+}
+
+.dialog__item {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f1f1;
+  border-radius: 15px;
+}
+
+.dialogs {
+  width: 30%;
+}
+
+.dialog__item.active {
+  color: crimson;
+}
+
+.link {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  margin: 0px;
+  line-height: 1.5;
+  color: #3f414d;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.img {
+  border-radius: 5px;
+  display: block;
+  height: 50px;
+  width: 50px;
+  margin-right: 20px;
+}

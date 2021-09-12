@@ -1,48 +1,58 @@
 import React from 'react';
-import styles from './FormsControls.module.css';
-import {Field, WrappedFieldMetaProps, WrappedFieldProps} from "redux-form";
-import {FieldValidatorType} from '../../../utils/validations';
+import style from './FormControls.module.css';
+import {Field, WrappedFieldMetaProps, WrappedFieldProps} from 'redux-form';
+import {FieldValidatorType} from '../../../utils/validators/validators';
 
 type FormControlPropsType = {
-    meta: WrappedFieldMetaProps
+	meta: WrappedFieldMetaProps
 }
 
-const FormControl: React.FC<FormControlPropsType> = ({meta: {touched, error}, children}) => {
-    const hasError = touched && error;
-    return (
-        <div className={styles.formControl + " " + (hasError ? styles.error : "")}>
-            <div>
-                {children}
-            </div>
-            {hasError && <span>{error}</span>}
-        </div>
-    )
+export const Textarea: React.FC<WrappedFieldProps>  = (props) => {
+	// const {input, meta, child, ...restProps} = props
+	const {input, meta, ...restProps} = props;
+	return (
+		<FormControl {...props}>
+			<textarea {...input} {...restProps} className={style.textarea}/>
+		</FormControl>
+	)
 }
 
-// export const FormElementInput = FormElementCreator('input')
-export const FormElementInput: React.FC<WrappedFieldProps> = (props) => {
-    const {input, meta, ...restProps} = props;
-    return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
+
+export const Input: React.FC<WrappedFieldProps> = (props) => {
+	// const {input, meta, child, ...restProps} = props
+	const {input, meta, ...restProps} = props;
+	return (
+		<FormControl {...props}>
+			<input {...input} {...restProps} className={style.input}/>
+		</FormControl>
+	)
 }
 
-// export const FormElementTextarea = FormElementCreator('textarea')
-export const FormElementTextarea: React.FC<WrappedFieldProps> = (props) => {
-    const {input, meta, ...restProps} = props;
-    return <FormControl {...props}><textarea {...input} {...restProps} /></FormControl>
+// @ts-ignore
+const FormControl: React.FC<FormControlPropsType> = ({input, meta: {touched, error}, children, ...props}) => {
+	const hasError = touched && error
+	return (
+		<div className={`${style.boxTextarea} ${style.formControl} ${hasError ? style.error : ''}`}>
+			<div>
+				{children}
+			</div>
+			{hasError && <p className={style.errorMessage}>{error}</p>}
+		</div>
+	)
 }
 
 export function createField<FormKeysType extends string>(placeholder: string | undefined,
-                                                         name: FormKeysType,
-                                                         validators: Array<FieldValidatorType>,
-                                                         component: React.FC<WrappedFieldProps>,
-                                                         props = {}, text = "") {
-    return <div>
-        <Field placeholder={placeholder} name={name}
-               validate={validators}
-               component={component}
-               {...props}
-        /> {text}
-    </div>
+																												 name: FormKeysType,
+																												 validators: Array<FieldValidatorType>,
+																												 component: React.FC<WrappedFieldProps>,
+																												 props = {}, text = "") {
+	return <div>
+		<Field placeholder={placeholder} name={name}
+					 validate={validators}
+					 component={component}
+					 {...props}
+		/> {text}
+	</div>
 }
 
 export type GetStringKeys<T> = Extract<keyof T, string>

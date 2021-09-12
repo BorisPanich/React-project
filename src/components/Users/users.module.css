@@ -1,8 +1,163 @@
-.usersPhoto {
-    height: 100px;
-    width: 100px;
+.box_wrap {
+  background-color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
 }
 
-.selectedPage {
-    font-weight: bold;
+.titleBox {
+  position: relative;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
+
+.title {
+  position: absolute;
+  z-index: 10;
+  border-radius: 5px;
+  left: 42%;
+  top: 50px;
+  background-color: white;
+  padding: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.5;
+  color: #3f414d;
+}
+
+.box {
+  background-color: white;
+  border-radius: 5px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.show_more_btn {
+  background: #50b5ff;
+  border: none;
+  font-size: 18px;
+  color: #fff;
+  outline: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.show_more_btn:hover,
+.show_more_btn:active {
+  background-color: #007bff;
+}
+
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  justify-content: space-around;
+}
+
+.container {
+  border-radius: 5px;
+  border-radius: 5px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 42%;
+  height: auto;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 20px 0px rgba(44, 101, 144, 0.1);
+}
+
+.bg {
+  border-radius: 5px;
+  width: 100%;
+  height: auto;
+  opacity: 0.8;
+}
+
+.avatar {
+  width: 80px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, .1);
+  height: auto;
+  position: absolute;
+  top: 30%;
+  cursor: pointer;
+}
+
+.name {
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  font-size: 19px;
+  color: #3f414d;
+}
+
+.name:first-letter {
+  text-transform:capitalize;
+}
+
+.wrapper {
+  padding: 10px;
+  display: flex;
+}
+
+.inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.follow_btn {
+  background: #50b5ff;
+  border: none;
+  font-size: 14px;
+  color: #fff;
+  outline: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.follow_btn:hover,
+.follow_btn:active {
+  background-color: #007bff;
+}
+
+.follow_btn:disabled{
+  opacity: 0.3;
+}
+
+.box_bg {
+  position: relative;
+  opacity: 0.7;
+  border-radius: 5px;
+  width: 100%;
+}
+
+
+/*.selected {*/
+/*  display: inline-block;*/
+/*  cursor: pointer;*/
+/*  font-size: larger;*/
+/*  color: crimson;*/
+/*  margin-left: 5px;*/
+/*}*/
+
+/*.pagination_wrap {*/
+/*  display: flex;*/
+/*  flex-wrap: wrap;*/
+/*}*/
+
+/*.pag {*/
+/*  display: flex;*/
+/*  cursor: pointer;*/
+/*  padding-left: 4px;*/
+/*}*/
