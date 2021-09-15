@@ -1,12 +1,12 @@
 import axios from 'axios';
-import {ProfileType} from '../types/types';
+import { ProfileType } from '../types/types';
 
 
 const instance = axios.create({
 	withCredentials: true,
 	baseURL: `https://social-network.samuraijs.com/api/1.0/`,
 	headers: {
-		'API-KEY': '0e95a4fa-922c-4e5c-96fa-c712f53359b8'
+		'API-KEY': 'd5df1483-fabd-4509-9f07-cc778848b14b'
 	}
 })
 
@@ -47,7 +47,7 @@ export const profileAPI = {
 	},
 
 	updateStatus(status: string) {
-		return instance.put(`profile/status`, {status: status})
+		return instance.put(`profile/status`, { status: status })
 	},
 
 	savePhoto(file: File) {
@@ -72,7 +72,7 @@ export const authAPI = {
 			})
 	},
 	login(email: string, password: string, rememberMe: boolean = false, captcha: null | string = null) {
-		return instance.post('auth/login', {email, password, rememberMe, captcha})
+		return instance.post('auth/login', { email, password, rememberMe, captcha })
 			.then(response => {
 				return response.data;
 			})

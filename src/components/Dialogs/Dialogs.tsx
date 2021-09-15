@@ -2,10 +2,10 @@ import React from 'react';
 import dialogs from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './MessageItem/MessageItem';
-import {Field, InjectedFormProps} from 'redux-form';
-import { reduxForm} from 'redux-form';
-import {Textarea} from '../common/FormControls/FormControls';
-import {maxLengthCreator, requiredField} from '../../utils/validators/validators';
+import { Field, InjectedFormProps } from 'redux-form';
+import { reduxForm } from 'redux-form';
+import { Textarea } from '../common/FormControls/FormControls';
+import { maxLengthCreator, requiredField } from '../../utils/validators/validators';
 
 type DialogsPropsType = {
 	dialogsPage: MessagePageType
@@ -35,10 +35,10 @@ const Dialogs = (props: DialogsPropsType) => {
 	const state = props.dialogsPage;
 
 	const dialogsElements = state.dialogsData.map(dialog => {
-		return <DialogItem id={dialog.id} name={dialog.name} key={dialog.id} image={dialog.image}/>;
+		return <DialogItem id={dialog.id} name={dialog.name} key={dialog.id} image={dialog.image} />;
 	})
 	const messagesElements = state.messagesData.map(message => {
-		return <Message message={message.message} key={message.id}/>
+		return <Message message={message.message} key={message.id} />
 	})
 
 
@@ -47,7 +47,7 @@ const Dialogs = (props: DialogsPropsType) => {
 	// }
 
 	const addNewMessage = (values: any) => {
-		console.log(values)
+		// console.log(values)
 		props.sendMessage(values.newMessageBody);
 	}
 
@@ -62,7 +62,7 @@ const Dialogs = (props: DialogsPropsType) => {
 				<ul className={dialogs.message__list}>
 					<div>{messagesElements}</div>
 				</ul>
-				<DialogsFormDataRedux onSubmit={addNewMessage}/>
+				<DialogsFormDataRedux onSubmit={addNewMessage} />
 			</div>
 		</div>
 	)
@@ -77,8 +77,8 @@ const DialogsFormData: React.FC<InjectedFormProps<DialogsFormDataType>> = (props
 		<form className={dialogs.box} onSubmit={props.handleSubmit}>
 			<div>
 				<Field name={'newMessageBody'} placeholder='Type your message..' className={dialogs.textarea}
-							 component={Textarea}
-							 validate={[requiredField, maxLength100]}
+					component={Textarea}
+					validate={[requiredField, maxLength100]}
 				/>
 			</div>
 			<div>

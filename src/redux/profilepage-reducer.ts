@@ -19,12 +19,11 @@ export type MyPostsType = {
 }
 
 
-
 const initialState = {
 	postsData: [
 		{
 			id: v1(),
-			message: 'Do you know who killed Kennedy?',
+			message: 'Do you have plans to weekend?',
 			likeCount: 3,
 			image: 'https://iqonic.design/themes/socialv/html/images/user/05.jpg'
 		},

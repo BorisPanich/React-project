@@ -9,8 +9,8 @@ import {AppStateType} from '../../redux/redux-store';
 import style from './../common/FormControls/FormControls.module.css';
 import loginStyle from './Login.module.css'
 
-// email: "mariya.syrokvash@yandex.ru"
-// password: "1234567890-="
+// email: "boris-panich@yandex.com"
+// password: "1357986420"
 
 // type LoginType = {
 // 	email: string

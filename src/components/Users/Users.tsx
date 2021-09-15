@@ -1,8 +1,8 @@
 import React from 'react';
 import us from './Users.module.css';
-import { userType} from '../../redux/users-reducer';
-import {Paginator} from '../common/Paginator/Paginator';
-import {User} from './User';
+import { userType } from '../../redux/users-reducer';
+import { Paginator } from '../common/Paginator/Paginator';
+import { User } from './User';
 
 
 type UsersFuncPropsType = {
@@ -24,16 +24,16 @@ const Users = (props: UsersFuncPropsType) => {
 		<div className={us.box_wrap}>
 			<div className={us.titleBox}>
 				<h2 className={us.title}>Friend Lists</h2>
-				<img src='https://iqonic.design/themes/socialv/html/images/page-img/profile-bg7.jpg' className={us.box_bg}/>
+				<img src='https://iqonic.design/themes/socialv/html/images/page-img/profile-bg7.jpg' className={us.box_bg} />
 			</div>
 			<div className={us.box}>
 				{props.users.map(user => {
 					return <User followingInProgress={props.followingInProgress} followThunkCreator={props.followThunkCreator}
-											 unFollowThunkCreator={props.unFollowThunkCreator} user={user} key={user.id}/>
+						unFollowThunkCreator={props.unFollowThunkCreator} user={user} key={user.id} />
 				})
 				}
 				<Paginator pageSize={props.pageSize} currentPage={props.currentPage} onPageChanged={props.onPageChanged}
-									 totalItemsCount={props.totalUsersCount}/>
+					totalItemsCount={props.totalUsersCount} />
 			</div>
 			{/*<button className={us.show_more_btn}>Show more</button>*/}
 		</div>
